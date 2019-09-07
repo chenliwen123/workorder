@@ -1,0 +1,110 @@
+<template>
+  <div class="main_flex">
+    <div class="main_right">
+      <el-form label-width="80px" :model="formLabelAlign">
+        <h2 class="el-text">工单详情</h2>
+        <el-form-item label="下单人">
+          <p v-text="formLabelAlign.xdr"></p>
+        </el-form-item>
+        <el-form-item label="域名">
+          <p v-cloak>{{formLabelAlign.ym}}</p>
+        </el-form-item>
+        <el-form-item label="工单类型">
+          <p label="1" v-if="formLabelAlign.leixing==1">域名解析</p>
+          <p label="2" v-if="formLabelAlign.leixing==2">整站复制</p>
+          <p label="3"  v-if="formLabelAlign.leixing==3">整站上传</p>
+          <p label="4"  v-if="formLabelAlign.leixing==4">域名续费</p>
+          <p label="5"  v-if="formLabelAlign.leixing==5">域名备案</p>
+          <p label="6"  v-if="formLabelAlign.leixing==6">域名转移</p>
+          <p label="7"  v-if="formLabelAlign.leixing==7">网站恢复</p>
+          <p label="10"  v-if="formLabelAlign.leixing==10">网站修改</p>
+          <p label="11"  v-if="formLabelAlign.leixing==11">专题复制</p>
+          <p label="12"  v-if="formLabelAlign.leixing==12">专题修改</p>
+          <p label="13"  v-if="formLabelAlign.leixing==13">整站修改</p>
+          <p label="14"  v-if="formLabelAlign.leixing==14">专题制作</p>
+          <p label="15"  v-if="formLabelAlign.leixing==15">整站制作</p>
+          <p label="16"  v-if="formLabelAlign.leixing==16" >整站优化</p>
+          <p label="17"  v-if="formLabelAlign.leixing==17">图片修改</p>
+          <p label="18"  v-if="formLabelAlign.leixing==18">图片设计</p>
+          <p label="19"  v-if="formLabelAlign.leixing==19" >专题设计</p>
+          <p label="20"  v-if="formLabelAlign.leixing==20" >整站设计</p>
+          <p label="8"  v-if="formLabelAlign.leixing==8">商务通</p>
+          <p label="9"  v-if="formLabelAlign.leixing==9">扒专题</p>
+        </el-form-item>
+        <el-form-item label="描述" style="margin-bottom:20px;">
+          <p class="description" v-cloak>{{formLabelAlign.description}}</p>
+        </el-form-item>
+        <el-form-item label="" v-if="formLabelAlign.fileurl" class="download_flex">
+          <a :href="formLabelAlign.fileurl" class="download"><el-button class="el-icon-download download_button" type="success" order>下载文件</el-button></a>
+        </el-form-item>
+        <el-form-item>
+          <el-button v-if="formLabelAlign.dqzt==1" type="primary" @click="jieshou()" round>接收</el-button>
+          <el-button type="success" v-if="formLabelAlign.dqzt==2"  round>工作中</el-button>
+          <el-button type="warning" v-if="formLabelAlign.dqzt==3" round>待打赏</el-button>
+          <el-button type="success" v-if="formLabelAlign.dqzt==4" round>已完成</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+</template>
+<script>
+import workaside from "./workaside.vue"
+export default {
+  name: 'article_article',
+  components:{workaside},
+  data(){
+    return{
+      formLabelAlign:{},
+     // formshow:false,//改变显示详细 变量
+    }
+  },
+  created(){
+      this.shuaxin();
+  },
+  methods:{
+      jieshou(){
+          let _this=this;
+          this.$axios.post("jieshou",`id=${_this.$route.params.id}`).then(function (success) {
+              if (success.data==1){
+                  _this.$store.commit('menusum');// 请求数据刷新 工单的个数 进行赋值
+                  console.log("接收成功");
+                  _this.$router.push({path:"/gongzuozhong"});
+              }else if (success.data==0){
+                  console.log("好像已经被人接走了");
+              }else{
+                  console.log("出现错误了");
+              }
+          })
+      },
+      shuaxin(){
+          let _this=this;
+          this.$store.commit('menusum');// 请求数据刷新 工单的个数 进行赋值
+          this.$axios.post("article_article",`id=${_this.$route.params.id}`).then(function (success) {
+              _this.formLabelAlign=success.data[0];
+              // if (success.data[0]!=null){
+              //     _this.formshow=true;//改变显示详细模块
+              // }
+          })
+      }
+  },
+}
+</script>
+<style scoped>
+  [v-cloak]{display:none !important;}
+  .main_left{width:10%;min-width:160px;}
+  .main_right{width:90%;display:flex;justify-content:center;}
+  .main_flex{display:flex;justify-content:space-between;}
+  .el-table__row,.expanded{cursor:pointer;}
+  .el-text{width:100%;margin:0;line-height: 2;}
+  .el-input{width:500px;}
+  .el-button{width:100%;font-size:20px;}
+  .el-form-item{margin-bottom:30px;}
+  .el-form-item p{margin:0;padding:0;text-align:left;border:1px solid #ddd; border-radius:10px;text-indent:10px;width:600px;padding:10px;line-height: 25px;}
+  .el-from{min-width:550px;}
+  .description{min-height:70px;}
+  .download,.download_button{width:110px;font-size:14px;line-height:0;height:30px;}
+  .download_flex{display:flex;justify-content:flex-end;margin-bottom:20px;}
+  .el-tag{font-size:18px;text-align:left;height: 100%;line-height:2;}
+  .leixing_tag{display:flex;justify-content:flex-start;}
+  .leixing_tag >>> .el-form-item__content{margin:0 !important;}
+</style>
