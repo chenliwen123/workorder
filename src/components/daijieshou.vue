@@ -6,7 +6,7 @@
       row-key="id"
       type="index"
       default-expand-all
-      height="860px"
+      height="800px"
       @cell-dblclick="xiangqing"
       row-class-name="ymchangd"
       class="table_tbody_tr">
@@ -111,9 +111,7 @@ export default {
         if (this.total<=11){
             this.pageshow=false;
         }
-        this.$axios.post("gongdannum").then(function (success) {
-            _this.$store.commit('menusum',success.data);
-        })// 请求数据刷新 工单的个数 进行赋值
+        this.$store.commit('menusum');//刷新左侧个数
         this.$axios.post("daijieshou").then(function (success) {
             _this.tableData=success.data;
         })
@@ -151,7 +149,7 @@ export default {
     },
       handleCurrentChange:function(val){
           let _this=this;
-          this.$axios.post("fanye",`sum=${--val}`).then(function (success) {
+          this.$axios.post("fanye",`sum=${--val}&dqzt=1`).then(function (success) {
               _this.tableData=success.data;
           });
       }

@@ -70,11 +70,7 @@
             }
         },
         mounted(){
-            let _this=this;
-            this.$axios.post("gongdannum").then(function (success) {
-                _this.$store.commit('menusum',success.data);
-            })// 请求数据刷新 工单的个数 进行赋值
-            //this.$route.params.id    路由请求ID
+                this.$store.commit('menusum',success.data);
         },
         methods:{
             beforeRemove(file, fileList) {

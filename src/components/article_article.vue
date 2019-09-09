@@ -39,7 +39,7 @@
         </el-form-item>
         <el-form-item>
           <el-button v-if="formLabelAlign.dqzt==1" type="primary" @click="jieshou()" round>接收</el-button>
-          <el-button type="success" v-if="formLabelAlign.dqzt==2"  round>工作中</el-button>
+          <el-button type="success" v-if="formLabelAlign.dqzt==2"  round>完成</el-button>
           <el-button type="warning" v-if="formLabelAlign.dqzt==3" round>待打赏</el-button>
           <el-button type="success" v-if="formLabelAlign.dqzt==4" round>已完成</el-button>
         </el-form-item>
