@@ -70,7 +70,8 @@
             }
         },
         mounted(){
-                this.$store.commit('menusum',success.data);
+                this.$store.commit('menusum');
+                this.$store.commit('menudefaultzt','1-5');//改变左侧激活状态
         },
         methods:{
             beforeRemove(file, fileList) {

@@ -11,45 +11,79 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column
         prop="id"
-        width="40"
+        min-width="80"
         label="id">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="ym"
         label="域名"
         sortable>
       </el-table-column>
       <el-table-column
-        prop="liexing"
+        prop="leixing"
         label="工单类型"
         sortable>
+        <template slot-scope="scope">
+          <el-tag label="1" v-if="scope.row.leixing==1" type="success" effect="plain">域名解析</el-tag>
+          <el-tag label="2" v-if="scope.row.leixing==2" type="success" effect="plain" border>整站复制</el-tag>
+          <el-tag label="3"  v-if="scope.row.leixing==3" type="success" effect="plain" border>整站上传</el-tag>
+          <el-tag label="4"  v-if="scope.row.leixing==4" type="success" effect="plain" border>域名续费</el-tag>
+          <el-tag label="5"  v-if="scope.row.leixing==5" type="success" effect="plain" border>域名备案</el-tag>
+          <el-tag label="6"  v-if="scope.row.leixing==6" type="success" effect="plain" border>域名转移</el-tag>
+          <el-tag label="7"  v-if="scope.row.leixing==7" type="success" effect="plain" border>网站恢复</el-tag>
+          <el-tag label="10"  v-if="scope.row.leixing==10" type="success" effect="plain" border>网站修改</el-tag>
+          <el-tag label="11"  v-if="scope.row.leixing==11" type="success" effect="plain" border>专题复制</el-tag>
+          <el-tag label="12"  v-if="scope.row.leixing==12" type="success" effect="plain" border>专题修改</el-tag>
+          <el-tag label="13"  v-if="scope.row.leixing==13" type="success" effect="plain" border>整站修改</el-tag>
+          <el-tag label="14"  v-if="scope.row.leixing==14" type="success" effect="plain" border>专题制作</el-tag>
+          <el-tag label="15"  v-if="scope.row.leixing==15" type="success" effect="plain" border>整站制作</el-tag>
+          <el-tag label="16"  v-if="scope.row.leixing==16" type="success" effect="plain" border>整站优化</el-tag>
+          <el-tag label="17"  v-if="scope.row.leixing==17" type="danger" effect="plain" border>图片修改</el-tag>
+          <el-tag label="18"  v-if="scope.row.leixing==18" type="danger" effect="plain" border>图片设计</el-tag>
+          <el-tag label="19"  v-if="scope.row.leixing==19" type="danger" effect="plain" border>专题设计</el-tag>
+          <el-tag label="20"  v-if="scope.row.leixing==20" type="danger" effect="plain" border>整站设计</el-tag>
+          <el-tag label="8"  v-if="scope.row.leixing==8" type="success" effect="plain" border>商务通</el-tag>
+          <el-tag label="9"  v-if="scope.row.leixing==9" type="success" effect="plain" border>扒专题</el-tag>
+        </template>
       </el-table-column>
       <el-table-column
-        prop="date"
+        prop="xdsj"
         label="下单日期"
         sortable>
+        <template slot-scope="scope">
+          {{scope.row.xdsj|formatDate}}
+        </template>
       </el-table-column>
       <el-table-column
-        prop="jdrq"
+        prop="jdsj"
         label="接单日期"
         sortable>
+        <template slot-scope="scope">
+          {{scope.row.jdsj|formatDate}}
+        </template>
       </el-table-column>
       <el-table-column
-        prop="wcrq"
+        prop="wcsj"
         label="完成日期"
         sortable>
+        <template slot-scope="scope">
+          {{scope.row.wcsj|formatDate}}
+        </template>
       </el-table-column>
       <el-table-column
-        prop="xiadanren"
+        prop="xdr"
         label="下单人"
         sortable>
       </el-table-column>
       <el-table-column prop="zhuangtai" label="当前状态" sortable>
-        <template slot-scope="scope" >
-          <el-tag type="warning">{{scope.row.zhuangtai}}</el-tag>
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.dqzt==1" type="primary" @click="jieshou()" round>接收</el-tag>
+          <el-tag type="success" v-if="scope.row.dqzt==2"  round>工作中</el-tag>
+          <el-tag type="warning" v-if="scope.row.dqzt==3" round>待打赏</el-tag>
+          <el-tag type="success" v-if="scope.row.dqzt==4" round>已完成</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center">
+      <el-table-column align="center" width="220">
         <template slot="header">
         </template>
         <template slot-scope="scope">
@@ -59,46 +93,27 @@
       </el-table-column>
     </el-table>
     <el-pagination
-      :page-size="10"
-      :total="total"
+      :page-size="11"
+      :total="this.$store.state.gongdan.daidashang"
       layout="total,prev,pager,next"
     ></el-pagination>
     <el-button-group>
-      <el-button type="success">优<i class="el-icon-sunny el-icon--right"></i></el-button>
-      <el-button type="warning">良<i class="el-icon-sunrise-1 el-icon--right"></i></el-button>
-      <el-button type="danger">差<i class="el-icon-heavy-rain el-icon--right"></i></el-button>
+      <el-button type="success" @click="dashang11(1)">优<i class="el-icon-sunny el-icon--right"></i></el-button>
+      <el-button type="warning" @click="dashang11(2)">良<i class="el-icon-sunrise-1 el-icon--right"></i></el-button>
+      <el-button type="danger" @click="dashang11(3)">差<i class="el-icon-heavy-rain el-icon--right"></i></el-button>
     </el-button-group>
   </div>
 </template>
 
 <script>
+import {formatDate} from "../assets/js/date";
+
 export default {
   name: 'daidashang',
   data(){
     return{
         total:17,
-      tableData: [
-        {
-          id: 3,
-          date: '2016-05-01',
-          name: 'mobile.89906662.com',
-          liexing:"网站修改",
-          xiadanren:"陈立文",
-          zhuangtai:"待打赏",
-          jdrq: '2019-08-05 11:30',
-          wcrq: '2019-08-05 14:04',
-        },
-        {
-          id: 4,
-          date: '2016-05-01',
-          name: 'mobile.89906662.com',
-          liexing:"网站修改",
-          xiadanren:"陈立文",
-          zhuangtai:"待打赏",
-          jdrq: '2019-08-05 11:30',
-          wcrq: '2019-08-05 14:04',
-        },
-      ],
+      tableData: [],
       dashang:[],
     }
   },
@@ -112,18 +127,39 @@ export default {
       console.log(id);
     },
      handleSelectionChange(selection){
+         this.dashang=[];
         let _this=this;
           selection.forEach(function (value,index,arr) {
               _this.dashang.push(value.id);
           })
          //   这个方法是把全选的id  存在数组里面,然后后续打赏的时候都提交过去   后台批量打赏
+      },
+      daidashanglist(){
+        let _this=this;
+        this.$axios.post('daidashanglist').then(function (success) {
+            _this.tableData=success.data;
+        })
+      },
+      dashang11(pj){
+        let _this=this;
+        this.$axios.post('dashang',`id=${_this.dashang}&pj=${pj}`).then(function (success) {
+            console.log(success.data);
+
+            // if (success.data){
+            //
+            // }
+        })
       }
   },
     mounted() {
-        let _this=this;
-        this.$axios.post("gongdannum").then(function (success) {
-            _this.$store.commit('menusum',success.data);
-        })// 请求数据刷新 工单的个数 进行赋值
+        this.$store.commit('menusum');//改变左侧菜单显示个数
+        this.$store.commit('menudefaultzt','1-3');//改变左侧激活状态
+        this.daidashanglist();//获取当前列表
+    },
+    filters:{
+      formatDate(time){
+          return formatDate(time);
+      }
     }
 }
 </script>

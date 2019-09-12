@@ -44,8 +44,10 @@
       </el-table-column>
       <el-table-column
         prop="jdsj"
-        label="接单日期"
-        sortable>
+        label="接单日期">
+        <template slot-scope="scope">
+          {{scope.row.jdsj | formatDate}}
+        </template>
       </el-table-column>
       <el-table-column
         prop="xdr"
@@ -72,19 +74,19 @@
       </el-table-column>
     </el-table>
     <el-pagination
-      :page-size="10"
-      :total="total"
+      :page-size="11"
+      :total="this.$store.state.gongdan.gongzuozhong"
       layout="total,prev,pager,next"
     ></el-pagination>
   </div>
 </template>
 
 <script>
+    import {formatDate} from '@/assets/js/date.js'
 export default {
   name: 'gongzuozhong',
   data(){
     return{
-      total:20,
       tableData: [
       ],
     }
@@ -114,6 +116,7 @@ export default {
                     message:"完成工单"
                 })
                 _this.$store.commit('menusum');//刷新左侧个数
+                _this.$router.push({path:'/daidashang'})
             }
         })
       }
@@ -121,11 +124,13 @@ export default {
     mounted() {
             this.$store.commit('menusum');
             this.gongzuozhonglist();
+        this.$store.commit('menudefaultzt','1-2');//改变左侧激活状态
     },
     filters:{
-      formatDate(time){
-          return formatDate(time);
-      }
+        //时间戳
+        formatDate(time) {
+            return formatDate(time);
+        },
     }
 }
 </script>

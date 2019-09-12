@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="main_left">
-        <el-menu :default-active="this.$store.state.menumorenzhi?this.$store.state.menumorenzhi:'1-1'" class="el-menu-vertical-demo">
+        <el-menu :default-active="this.$store.state.menumorenzhi" class="el-menu-vertical-demo">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-menu"></i>

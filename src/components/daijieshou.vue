@@ -12,7 +12,7 @@
       class="table_tbody_tr">
       <el-table-column
         prop="id"
-        width="80"
+        min-width="80"
         label="id">
       </el-table-column>
    <el-table-column
@@ -24,7 +24,7 @@
       <el-table-column
         prop="leixing"
         label="工单类型"
-        width="120"
+        min-width="120"
         sortable>
 <template slot-scope="scope">
   <el-tag label="1" v-if="scope.row.leixing==1" type="success" effect="plain">域名解析</el-tag>
@@ -52,7 +52,7 @@
       <el-table-column
         prop="xdsj"
         label="下单时间"
-        width="250"
+        min-width="180"
         sortable>
         <template slot-scope="scope">
           {{scope.row.xdsj | formatDate}}
@@ -61,10 +61,10 @@
       <el-table-column
         prop="xdr"
         label="下单人"
-        width="100"
+        min-width="100"
         sortable>
       </el-table-column>
-      <el-table-column prop="dqzt" label="当前状态" width="100" height="35" sortable>
+      <el-table-column prop="dqzt" label="当前状态" min-width="100" height="35" sortable>
         <template slot-scope="scope">
           <el-badge is-dot :hidden="scope.row.fileurl==''">
               <el-tag type="primary" v-if="scope.row.dqzt==1">待接收</el-tag>
@@ -74,11 +74,12 @@
           </el-badge>
         </template>
       </el-table-column>
-      <el-table-column align="center">
+      <el-table-column align="center" min-width="220">
         <template slot="header">
           <el-input v-model="search" size="mini" placeholder="请输入关键词搜索"></el-input>
         </template>
         <template slot-scope="scope">
+          <el-button size="mini" type="success" @click="jieshou(scope.row.id)">接收</el-button>
           <el-button size="mini" type="info" @click="xiangqing(scope.row.id)">查看</el-button>
           <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index)">删除</el-button>
         </template>
@@ -112,6 +113,7 @@ export default {
             this.pageshow=false;
         }
         this.$store.commit('menusum');//刷新左侧个数
+        this.$store.commit('menudefaultzt','1-1');//改变左侧激活状态
         this.$axios.post("daijieshou").then(function (success) {
             _this.tableData=success.data;
         })
@@ -152,7 +154,20 @@ export default {
           this.$axios.post("fanye",`sum=${--val}&dqzt=1`).then(function (success) {
               _this.tableData=success.data;
           });
-      }
+      },
+      jieshou(id){
+          let _this=this;
+          this.$axios.post("jieshou",`id=${id}`).then(function (success) {
+              if (success.data==1){
+                  _this.$store.commit('menusum');// 请求数据刷新 工单的个数 进行赋值
+                  _this.$router.push({path:"/gongzuozhong"});
+              }else if (success.data==0){
+                  console.log("好像已经被人接走了");
+              }else{
+                  console.log("出现错误了");
+              }
+          })
+      },
   },
     filters:{
         //时间戳

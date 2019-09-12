@@ -8,7 +8,7 @@ axios.defaults.headers['Content-Type']='Application/x-www-form-urlencoded';
 Vue.use(Vuex);
 const Store=new Vuex.Store({
   state:{
-    menumorenzhi:"",//menu 激活 值
+    menumorenzhi:"1-1",//menu 激活 值
     gongdan:"",     //工单 个数
   },
   mutations:{
