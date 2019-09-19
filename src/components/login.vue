@@ -35,7 +35,7 @@ export default {
   methods:{
     login:function () {
       var _this=this;
-      this.$axios.post("http://localhost:11112/index/Index/vuelogin","name="+this.name+"&pas="+this.pas).then((res)=>{
+      this.$axios.post("vuelogin","name="+this.name+"&pas="+this.pas).then((res)=>{
         if (res.data.code==1){
           this.$cookie.set('name',_this.name,{expires:'1d'})
           _this.$router.push('/daijieshou')

@@ -34,14 +34,21 @@
         <el-form-item label="描述" style="margin-bottom:20px;">
           <p class="description" v-cloak>{{formLabelAlign.description}}</p>
         </el-form-item>
-        <el-form-item label="" v-if="formLabelAlign.fileurl" class="download_flex">
-          <a :href="formLabelAlign.fileurl" class="download"><el-button class="el-icon-download download_button" type="success" order>下载文件</el-button></a>
+        <el-form-item label="" class="download_flex">
+          <el-button-group style="float:left;" v-if="formLabelAlign.dqzt==3">
+            <el-button type="success" size="mini" @click="dashang11(1)">优<i class="el-icon-sunny el-icon--right"></i></el-button>
+            <el-button type="warning" size="mini" @click="dashang11(2)">良<i class="el-icon-sunrise-1 el-icon--right"></i></el-button>
+            <el-button type="danger" size="mini" @click="dashang11(3)">差<i class="el-icon-heavy-rain el-icon--right"></i></el-button>
+          </el-button-group>
+          <a :href="formLabelAlign.fileurl" class="download" style="float:right"  v-if="formLabelAlign.fileurl">
+            <el-button class="el-icon-download download_button" type="success" order>下载文件</el-button>
+          </a>
         </el-form-item>
         <el-form-item>
-          <el-button v-if="formLabelAlign.dqzt==1" type="primary" @click="jieshou()" round>接收</el-button>
-          <el-button type="success" v-if="formLabelAlign.dqzt==2"  round>完成</el-button>
-          <el-button type="warning" v-if="formLabelAlign.dqzt==3" round>待打赏</el-button>
-          <el-button type="success" v-if="formLabelAlign.dqzt==4" round>已完成</el-button>
+          <el-button class="quedingbutton" v-if="formLabelAlign.dqzt==1" type="primary" @click="jieshou()" round>接收</el-button>
+          <el-button class="quedingbutton" type="success" v-if="formLabelAlign.dqzt==2"  round>完成</el-button>
+          <el-button class="quedingbutton" type="warning" v-if="formLabelAlign.dqzt==3" round>打赏</el-button>
+          <el-button class="quedingbutton" type="success" v-if="formLabelAlign.dqzt==4" round>已完成</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -85,6 +92,19 @@ export default {
               //     _this.formshow=true;//改变显示详细模块
               // }
           })
+      },
+      dashang11(pj){
+          let _this=this;
+          this.$axios.post('dashang',`id=${_this.dashang}&pj=${pj}`).then(function (success) {
+              console.log(success.data);
+              if (success.data==1){
+                  _this.$message({
+                      type:"success",
+                      message:"打赏成功",
+                  })
+                  _this.$router.push("/yiwancheng");
+              }
+          })
       }
   },
 }
@@ -97,14 +117,16 @@ export default {
   .el-table__row,.expanded{cursor:pointer;}
   .el-text{width:100%;margin:0;line-height: 2;}
   .el-input{width:500px;}
-  .el-button{width:100%;font-size:20px;}
+  .quedingbutton{width:100%;font-size:20px;}
   .el-form-item{margin-bottom:30px;}
   .el-form-item p{margin:0;padding:0;text-align:left;border:1px solid #ddd; border-radius:10px;text-indent:10px;width:600px;padding:10px;line-height: 25px;}
   .el-from{min-width:550px;}
   .description{min-height:70px;}
+
   .download,.download_button{width:110px;font-size:14px;line-height:0;height:30px;}
-  .download_flex{display:flex;justify-content:flex-end;margin-bottom:20px;}
+  .download_flex{display:flex;justify-content:space-between;margin-bottom:20px;}
   .el-tag{font-size:18px;text-align:left;height: 100%;line-height:2;}
   .leixing_tag{display:flex;justify-content:flex-start;}
   .leixing_tag >>> .el-form-item__content{margin:0 !important;}
+  .download_flex[data-v-63284e4d] >>> div.el-form-item__content{width:100%;}
 </style>

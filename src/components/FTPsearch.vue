@@ -7,7 +7,6 @@
       default-expand-all
       row-key="ym"
       width="100%"
-      @cell-dblclick="FTParticle"
       >
         <el-table-column prop="yyks" label="医院科室"></el-table-column>
         <el-table-column prop="ym" label="域名"></el-table-column>
@@ -19,6 +18,12 @@
         <el-table-column prop="htzh" width="100" label="账号"></el-table-column>
         <el-table-column prop="htmm" label="密码"></el-table-column>
         <el-table-column prop="cjdate" label="创建时间"></el-table-column>
+        <el-table-column>
+          <template slot-scope="scope">
+            <el-button size="mini" type="primary" v-if="scope.row.id==true">修改</el-button>
+            <el-button size="mini" type="danger"  v-if="scope.row.id==true">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <el-pagination
         :page-size="10"

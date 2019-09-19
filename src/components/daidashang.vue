@@ -77,10 +77,9 @@
       </el-table-column>
       <el-table-column prop="zhuangtai" label="当前状态" sortable>
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.dqzt==1" type="primary" @click="jieshou()" round>接收</el-tag>
-          <el-tag type="success" v-if="scope.row.dqzt==2"  round>工作中</el-tag>
-          <el-tag type="warning" v-if="scope.row.dqzt==3" round>待打赏</el-tag>
-          <el-tag type="success" v-if="scope.row.dqzt==4" round>已完成</el-tag>
+          <el-badge is-dot :hidden="scope.row.fileurl==''">
+            <el-tag type="warning" v-if="scope.row.dqzt==3" round>待打赏</el-tag>
+          </el-badge>
         </template>
       </el-table-column>
       <el-table-column align="center" width="220">
@@ -125,7 +124,7 @@ export default {
     },
     deletework:function (id) {
       console.log(id);
-    },
+    },/*删除方法*/
      handleSelectionChange(selection){
          this.dashang=[];
         let _this=this;
@@ -144,10 +143,13 @@ export default {
         let _this=this;
         this.$axios.post('dashang',`id=${_this.dashang}&pj=${pj}`).then(function (success) {
             console.log(success.data);
-
-            // if (success.data){
-            //
-            // }
+            if (success.data==1){
+                _this.$message({
+                    type:"success",
+                    message:"打赏成功",
+                })
+                _this.$router.push("/yiwancheng");
+            }
         })
       }
   },
@@ -169,4 +171,5 @@ export default {
   .el-table__footer-wrapper, .el-table__header-wrapper{cursor: pointer;}
   .el-table .cell{
     text-align:center;}
+  .el-badge >>> .el-badge__content{top:5px;}
 </style>

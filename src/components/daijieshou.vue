@@ -68,9 +68,9 @@
         <template slot-scope="scope">
           <el-badge is-dot :hidden="scope.row.fileurl==''">
               <el-tag type="primary" v-if="scope.row.dqzt==1">待接收</el-tag>
-              <el-tag type="warning" v-if="scope.row.dqzt==2">工作中</el-tag>
-              <el-tag type="primary" v-if="scope.row.dqzt==3">待打赏</el-tag>
-              <el-tag type="success" v-if="scope.row.dqzt==4">已完成</el-tag>
+              <el-tag type="success" v-if="scope.row.dqzt==2">工作中</el-tag>
+              <el-tag type="warning" v-if="scope.row.dqzt==3">待打赏</el-tag>
+              <el-tag type="info" v-if="scope.row.dqzt==4">已完成</el-tag>
           </el-badge>
         </template>
       </el-table-column>
@@ -159,7 +159,10 @@ export default {
           let _this=this;
           this.$axios.post("jieshou",`id=${id}`).then(function (success) {
               if (success.data==1){
-                  _this.$store.commit('menusum');// 请求数据刷新 工单的个数 进行赋值
+                  _this.$message({
+                      type:"success",
+                      message:"已成功接到工单"
+                  });
                   _this.$router.push({path:"/gongzuozhong"});
               }else if (success.data==0){
                   console.log("好像已经被人接走了");
