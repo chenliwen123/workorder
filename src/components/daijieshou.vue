@@ -79,9 +79,9 @@
           <el-input v-model="search" size="mini" placeholder="请输入关键词搜索"></el-input>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" type="success" @click="jieshou(scope.row.id)">接收</el-button>
+          <el-button size="mini" type="success" @click="jieshou(scope.row.id)" v-if="scope.row.dqzt==1">接收</el-button>
           <el-button size="mini" type="info" @click="xiangqing(scope.row.id)">查看</el-button>
-          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index,scope.row.dqzt)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -117,6 +117,7 @@ export default {
         this.$axios.post("daijieshou").then(function (success) {
             _this.tableData=success.data;
         })
+        console.log(process.env.NODE_ENV);
     },
   methods:{
     xiangqing:function (row,column,event,cell,id) {
@@ -125,29 +126,13 @@ export default {
       article_id;
       this.$router.push({path:`/article_article/${article_id}`});
     },
-    deletework:function (id,index) {
-      let _this=this;
-      this.$confirm(`将删除ID为${id}的工单,是否继续`,'提示',{
-          confirmButtonText:"确定",
-          cancelButtonText:"取消",
-          type:"warning"
-      }).then(function () {
-          _this.$axios.post("delete_article",`id=${id}`).then(function (success) {//实现数据库中删除
-              if (success.data==1){
-                  _this.$message({
-                      message:"删除成功",
-                      type:"success"
-                  });
-                  _this.tableData.splice(index,1);//实现组件中数组删除
-                  _this.$store.commit("daijieshoujianyi");//实现左侧个数减一
-              }
-          })
-      }).catch(function () {
-          _this.$message({
-              message:"取消删除",
-              type:"info",
-          })
-      })
+    deletework:function (id,index,dqzt) {
+        console.log(this.$store.commit('deletework',{id,dqzt}));
+        console.log(this.$store.state.gaibian);
+       if (this.$store.state.text=='xiaoming'){
+
+           this.tableData.splice(index,1);//实现组件中数组删除
+       }
     },
       handleCurrentChange:function(val){
           let _this=this;
