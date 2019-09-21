@@ -87,7 +87,7 @@
     </el-table>
   <el-pagination
     :page-size="11"
-    :total="this.$store.state.gongdan.daijieshou"
+    :total="allgongdan"
     layout="total,prev,pager,next"
     @current-change="handleCurrentChange"
   ></el-pagination>
@@ -104,6 +104,7 @@ export default {
         tableData: [],
         sum:1,//当前页
         pageshow:true,
+        allgongdan:0,
         // listdata:['域名解析','整站复制','整站上传','域名续费','域名备案','域名转移','网站恢复','网站修改','专题复制','专题修改','专题复制','整站修改','专题制作']
     }
   },
@@ -117,6 +118,9 @@ export default {
         this.$axios.post("daijieshou").then(function (success) {
             _this.tableData=success.data;
         })
+        this.$axios.post("gongdansum").then((success)=>{
+            _this.allgongdan=success.data.daijieshou
+        })
         console.log(process.env.NODE_ENV);
     },
   methods:{
@@ -127,16 +131,16 @@ export default {
       this.$router.push({path:`/article_article/${article_id}`});
     },
     deletework:function (id,index,dqzt) {
-        console.log(this.$store.commit('deletework',{id,dqzt}));
-        console.log(this.$store.state.gaibian);
-       if (this.$store.state.text=='xiaoming'){
-
-           this.tableData.splice(index,1);//实现组件中数组删除
-       }
+        this.$store.dispatch('deletework',{id,dqzt}).then(function (success) {
+            console.log(success)
+        })
+       // if (this.$store.state.text=='xiaoming'){
+       //     this.tableData.splice(index,1);//实现组件中数组删除
+       // }
     },
       handleCurrentChange:function(val){
           let _this=this;
-          this.$axios.post("fanye",`sum=${--val}&dqzt=1`).then(function (success) {
+          this.$axios.post("allfanye",`sum=${--val}&dqzt=1`).then(function (success) {
               _this.tableData=success.data;
           });
       },

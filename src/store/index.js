@@ -33,6 +33,8 @@ const Store=new Vuex.Store({
     gaibian(state,index){
       state.gaibian=index;
     },
+  },
+  actions:{
     deletework(state,data){
       MessageBox.confirm(`将删除ID为${data.id}的工单,是否继续`,'提示',{
         confirmButtonText:"确定",
@@ -40,8 +42,7 @@ const Store=new Vuex.Store({
         type:"warning"
       }).then(function () {
         axios.post("delete_article",`id=${data.id}`).then(function (success) {//实现数据库中删除
-          if (success.data==1){
-            state.gaibian=1;
+          if (state.gaibian=success.data==1){
             Store.commit('gaibian','1');
             Message({
               message:"删除成功",
@@ -49,6 +50,7 @@ const Store=new Vuex.Store({
             });
           }
           Store.commit('daijieshoujianyi',data.dqzt);
+
         })
       }).catch(function () {
         Store.commit('gaibian','0');
@@ -58,8 +60,6 @@ const Store=new Vuex.Store({
         })
       })
     }
-  },
-  actoins:{
   },
   getters:{
   }

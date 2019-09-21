@@ -95,6 +95,7 @@
       :page-size="11"
       :total="this.$store.state.gongdan.daidashang"
       layout="total,prev,pager,next"
+      @current-change="handleCurrentChange"
     ></el-pagination>
     <el-button-group>
       <el-button type="success" @click="dashang11(1)">优<i class="el-icon-sunny el-icon--right"></i></el-button>
@@ -111,7 +112,6 @@ export default {
   name: 'daidashang',
   data(){
     return{
-        total:17,
       tableData: [],
       dashang:[],
     }
@@ -121,7 +121,7 @@ export default {
       let article_id;
       article_id=row.id?row.id:row;
       this.$router.push({path:`/article_article/${article_id}`});
-    },
+    },//进入详情页方法
     deletework:function (id) {
       console.log(id);
     },/*删除方法*/
@@ -138,7 +138,7 @@ export default {
         this.$axios.post('daidashanglist').then(function (success) {
             _this.tableData=success.data;
         })
-      },
+      },//渲染列表
       dashang11(pj){
         let _this=this;
         this.$axios.post('dashang',`id=${_this.dashang}&pj=${pj}`).then(function (success) {
@@ -151,7 +151,13 @@ export default {
                 _this.$router.push("/yiwancheng");
             }
         })
-      }
+      },//打赏
+      handleCurrentChange:function(val){
+          let _this=this;
+          this.$axios.post("fanye",`sum=${--val}&dqzt=3`).then(function (success) {
+              _this.tableData=success.data;
+          });
+      },//翻页
   },
     mounted() {
         this.$store.commit('menusum');//改变左侧菜单显示个数

@@ -101,8 +101,9 @@
     </el-table>
     <el-pagination
       :page-size="10"
-      :total="total"
+      :total="this.$store.state.gongdan.yiwancheng"
       layout="total,prev,pager,next"
+      @current-change="handleCurrentChange"
     ></el-pagination>
   </div>
 </template>
@@ -131,7 +132,13 @@ export default {
         this.$axios.post('yiwanchenglist').then(function(success) {
             _this.tableData=success.data;
         })
-      }
+      },
+      handleCurrentChange:function(val){
+          let _this=this;
+          this.$axios.post("fanye",`sum=${--val}&dqzt=4`).then(function (success) {
+              _this.tableData=success.data;
+          });
+      },//翻页
   },
     mounted() {
             this.$store.commit('menusum');
