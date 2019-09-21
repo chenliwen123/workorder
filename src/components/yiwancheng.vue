@@ -100,7 +100,7 @@
       </el-table-column>
     </el-table>
     <el-pagination
-      :page-size="10"
+      :page-size="11"
       :total="this.$store.state.gongdan.yiwancheng"
       layout="total,prev,pager,next"
       @current-change="handleCurrentChange"
