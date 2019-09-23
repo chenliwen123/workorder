@@ -39,7 +39,7 @@
           <el-input v-model="dataftp.htmm"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" class="addbutton" round>添加</el-button>
+          <el-button type="success" class="addbutton" @click="addftp" round>添加</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -70,9 +70,15 @@
         },
         mounted() {
             this.$store.commit('menusum');
-            this.$store.commit('menudefaultzt','2');//改变左侧激活状态
+          this.$store.commit('menudefaultzt','2');//改变左侧激活状态
         },
         methods: {
+          addftp(){
+            let _this=this;
+            this.$axios.post("addftp",`yyks=${_this.dataftp.yyks}&ym=${_this.dataftp.ym}&&FTP_ip=${_this.dataftp.FTP_ip}&FTPdk=${_this.dataftp.FTPdk}&FTPzh=${_this.dataftp.FTPzh}&FTPmm=${_this.dataftp.FTPmm}&htdz=${_this.dataftp.htdz}&htzh=${_this.dataftp.htzh}&htmm=${_this.dataftp.htmm}&cjdate=${_this.dataftp.cjdate}&children=${_this.dataftp.children}`).then((success)=>{
+              console.log(success);
+            })
+          },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },

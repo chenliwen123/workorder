@@ -36,7 +36,7 @@
         </el-form-item>
         <el-form-item label="" class="download_flex">
           <el-radio-group  size="small" style="float:left;" v-if="formLabelAlign.dqzt==3" v-model="radio">
-            <el-radio-button class="you" label="1">优<i class="el-icon-sunny el-icon--right"></i></el-radio-button>
+            <el-radio-button class="you"  label="1">优<i class="el-icon-sunny el-icon--right"></i></el-radio-button>
             <el-radio-button class="liang" label="2">良<i class="el-icon-sunrise-1 el-icon--right"></i></el-radio-button>
             <el-radio-button class="cha" label="3">差<i class="el-icon-heavy-rain el-icon--right"></i></el-radio-button>
           </el-radio-group>
@@ -63,7 +63,7 @@ export default {
     return{
       formLabelAlign:{},
      // formshow:false,//改变显示详细 变量
-        radio:1,
+        radio:null,
     }
   },
   created(){
@@ -136,7 +136,7 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style scoped type="less">
   [v-cloak]{display:none !important;}
   .main_left{width:10%;min-width:160px;}
   .main_right{width:90%;display:flex;justify-content:center;}
@@ -156,7 +156,42 @@ export default {
   .leixing_tag{display:flex;justify-content:flex-start;}
   .leixing_tag >>> .el-form-item__content{margin:0 !important;}
   .download_flex[data-v-63284e4d] >>> div.el-form-item__content{width:100%;}
-  .el-radio-button:nth-child(1).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#67C23A;border:#67C23A 1px solid;-webkit-box-shadow:-1px 0 0 0 #409EFF;}
+  .el-radio-button:nth-child(1).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#67C23A;border:#67C23A 1px solid ;-webkit-box-shadow:-1px 0 0 0 #67C23A;}
   .el-radio-button:nth-child(2).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#E6A23C;border:#E6A23C 1px solid;-webkit-box-shadow:-1px 0 0 0 #E6A23C;}
   .el-radio-button:nth-child(3).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#F56C6C;border:#F56C6C 1px solid;-webkit-box-shadow:-1px 0 0 0 #F56C6C;}
+  .el-radio-group {
+
+    .el-radio__input.is-checked .el-radio__inner {
+
+
+
+      border-color: #67C23A;
+
+      background: #67C23A;
+
+    }
+
+    .el-radio__input .el-radio__inner {
+
+
+
+      &:hover {
+
+        border: 1px solid #67C23A;
+
+      }
+
+    }
+
+    .el-radio__input.is-checked+.el-radio__label {
+
+
+
+      color: #67C23A;
+
+    }
+
+
+
+  }
 </style>

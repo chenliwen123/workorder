@@ -1,7 +1,10 @@
 <template>
     <div>
       <div class="title_search"><h1>相关域名查询</h1><router-link to="/addFTP"><el-button type="success">添加</el-button></router-link></div>
-      <el-input class="search_bottom" placeholder="请输入相关域名" v-model="search" @keyup.enter.native="ymsearch"><template slot="prepend">域名</template><el-button slot="append" @click="ymsearch" icon="el-icon-search"></el-button></el-input>
+      <el-input class="search_bottom" placeholder="请输入相关域名" v-model="search" @keyup.enter.native="ymsearch">
+        <template slot="prepend">域名</template>
+        <el-button slot="append" @click="ymsearch" icon="el-icon-search"></el-button>
+      </el-input>
       <el-table
       :data="dataftp"
       default-expand-all
