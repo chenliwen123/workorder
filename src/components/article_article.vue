@@ -35,19 +35,19 @@
           <p class="description" v-cloak>{{formLabelAlign.description}}</p>
         </el-form-item>
         <el-form-item label="" class="download_flex">
-          <el-button-group style="float:left;" v-if="formLabelAlign.dqzt==3">
-            <el-button type="success" size="mini" @click="dashang11(1)">优<i class="el-icon-sunny el-icon--right"></i></el-button>
-            <el-button type="warning" size="mini" @click="dashang11(2)">良<i class="el-icon-sunrise-1 el-icon--right"></i></el-button>
-            <el-button type="danger" size="mini" @click="dashang11(3)">差<i class="el-icon-heavy-rain el-icon--right"></i></el-button>
-          </el-button-group>
+          <el-radio-group  size="small" style="float:left;" v-if="formLabelAlign.dqzt==3" v-model="radio">
+            <el-radio-button class="you" label="1">优<i class="el-icon-sunny el-icon--right"></i></el-radio-button>
+            <el-radio-button class="liang" label="2">良<i class="el-icon-sunrise-1 el-icon--right"></i></el-radio-button>
+            <el-radio-button class="cha" label="3">差<i class="el-icon-heavy-rain el-icon--right"></i></el-radio-button>
+          </el-radio-group>
           <a :href="formLabelAlign.fileurl" class="download" style="float:right"  v-if="formLabelAlign.fileurl">
             <el-button class="el-icon-download download_button" type="success" order>下载文件</el-button>
           </a>
         </el-form-item>
         <el-form-item>
           <el-button class="quedingbutton" v-if="formLabelAlign.dqzt==1" type="primary" @click="jieshou()" round>接收</el-button>
-          <el-button class="quedingbutton" type="success" v-if="formLabelAlign.dqzt==2"  round>完成</el-button>
-          <el-button class="quedingbutton" type="warning" v-if="formLabelAlign.dqzt==3" round>打赏</el-button>
+          <el-button class="quedingbutton" type="success" v-if="formLabelAlign.dqzt==2"  @click="wancheng()" round>完成</el-button>
+          <el-button class="quedingbutton" type="warning" v-if="formLabelAlign.dqzt==3" @click="dashang11()" round>打赏</el-button>
           <el-button class="quedingbutton" type="success" v-if="formLabelAlign.dqzt==4" round>已完成</el-button>
         </el-form-item>
       </el-form>
@@ -63,6 +63,7 @@ export default {
     return{
       formLabelAlign:{},
      // formshow:false,//改变显示详细 变量
+        radio:1,
     }
   },
   created(){
@@ -93,9 +94,9 @@ export default {
               // }
           })
       },
-      dashang11(pj){
+      dashang11(){
           let _this=this;
-          this.$axios.post('dashang',`id=${_this.dashang}&pj=${pj}`).then(function (success) {
+          this.$axios.post('dashang',`id=${_this.dashang}&pj=${_this.radio}`).then(function (success) {
               console.log(success.data);
               if (success.data==1){
                   _this.$message({
@@ -105,7 +106,33 @@ export default {
                   _this.$router.push("/yiwancheng");
               }
           })
-      }
+      },
+      wancheng(){
+          let _this=this;
+          this.$axios.post('wanchen',`id=${_this.$route.params.id}`).then(function (success) {
+              if (success.data==1){
+                  _this.$message({
+                      type:"success",
+                      message:"完成工单"
+                  })
+                  _this.$store.commit('menusum');//刷新左侧个数
+                  _this.$router.push({path:'/daidashang'})
+              }
+          })
+      },
+      dashang11(pj){
+          let _this=this;
+          this.$axios.post('dashang',`id=${_this.$route.params.id}&pj=${pj}`).then(function (success) {
+              console.log(success.data);
+              if (success.data==1){
+                  _this.$message({
+                      type:"success",
+                      message:"打赏成功",
+                  })
+                  _this.$router.push("/yiwancheng");
+              }
+          })
+      },//打赏
   },
 }
 </script>
@@ -129,4 +156,7 @@ export default {
   .leixing_tag{display:flex;justify-content:flex-start;}
   .leixing_tag >>> .el-form-item__content{margin:0 !important;}
   .download_flex[data-v-63284e4d] >>> div.el-form-item__content{width:100%;}
+  .el-radio-button:nth-child(1).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#67C23A;border:#67C23A 1px solid;-webkit-box-shadow:-1px 0 0 0 #409EFF;}
+  .el-radio-button:nth-child(2).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#E6A23C;border:#E6A23C 1px solid;-webkit-box-shadow:-1px 0 0 0 #E6A23C;}
+  .el-radio-button:nth-child(3).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#F56C6C;border:#F56C6C 1px solid;-webkit-box-shadow:-1px 0 0 0 #F56C6C;}
 </style>

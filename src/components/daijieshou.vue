@@ -75,8 +75,8 @@
         </template>
       </el-table-column>
       <el-table-column align="center" min-width="220">
-        <template slot="header">
-          <el-input v-model="search" size="mini" placeholder="请输入关键词搜索"></el-input>
+        <template slot="header" slot-scope="scope">
+          <el-input v-model="search" size="mini" @keyup.enter.native="searchdjs()" placeholder="请输入关键词搜索"></el-input>
         </template>
         <template slot-scope="scope">
           <el-button size="mini" type="success" @click="jieshou(scope.row.id)" v-if="scope.row.dqzt==1">接收</el-button>
@@ -86,11 +86,20 @@
       </el-table-column>
     </el-table>
   <el-pagination
+    v-if="pagination"
+    :page-size="11"
+    :total="searchall"
+    layout="total,prev,pager,next"
+    @current-change="searchfanye"
+  ></el-pagination>
+  <el-pagination
+    v-else
     :page-size="11"
     :total="allgongdan"
     layout="total,prev,pager,next"
     @current-change="handleCurrentChange"
   ></el-pagination>
+
   </div>
 </template>
 
@@ -100,7 +109,9 @@ export default {
   name: 'daijieshou',
   data(){
     return{
+        pagination:false,
         search:"",
+        searchall:0,
         tableData: [],
         sum:1,//当前页
         pageshow:true,
@@ -121,7 +132,8 @@ export default {
         this.$axios.post("gongdansum").then((success)=>{
             _this.allgongdan=success.data.daijieshou
         })
-        console.log(process.env.NODE_ENV);
+        this.pagination=false;
+        console.log(process.env.NODE_ENV);//当前模式
     },
   methods:{
     xiangqing:function (row,column,event,cell,id) {
@@ -140,10 +152,17 @@ export default {
     },
       handleCurrentChange:function(val){
           let _this=this;
-          this.$axios.post("allfanye",`sum=${--val}&dqzt=1`).then(function (success) {
+          this.$axios.post("allfanye",`sum=${--val}`).then(function (success) {
               _this.tableData=success.data;
           });
       },
+      searchfanye:function(val){
+          let _this=this;
+          this.$axios.post("searchfanye",`sum=${--val}&info=${_this.search}`).then(function (success) {
+              _this.tableData=success.data;
+          });
+      },
+
       jieshou(id){
           let _this=this;
           this.$axios.post("jieshou",`id=${id}`).then(function (success) {
@@ -159,6 +178,15 @@ export default {
                   console.log("出现错误了");
               }
           })
+      },
+      searchdjs(){
+        let _this=this;
+        this.search;
+        this.$axios.post("searchdjs",`info=${_this.search}`).then((success)=>{
+            _this.tableData=success.data[1];
+            _this.searchall=success.data[0];
+        })
+          this.pagination=true;
       },
   },
     filters:{
