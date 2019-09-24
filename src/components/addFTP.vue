@@ -1,7 +1,7 @@
 <template>
   <div class="main_flex">
     <div class="main_right">
-      <el-form label-width="80px" :model="dataftp">
+      <el-form label-width="80px" :model="dataftp" ref='dataftp'>
         <h2 class="el-text">FTP信息详情</h2>
         <el-form-item label="医院科室" prop="yyks" :rules="[
         {required:true,message:'医院科室不能为空'}
@@ -14,7 +14,7 @@
           <el-input v-model="dataftp.ym"></el-input>
         </el-form-item>
         <el-form-item label="绑定域名">
-         <el-tag v-for="(item,index) of dataftp.children" :key="index" closable @close="deletebym(index)">{{item.ym}}</el-tag>
+         <el-tag v-for="(item,index) of dataftp.children" :key="index" closable @close="deletebym(index)">{{item}}</el-tag>
           <el-button v-if="addbdymshow" class="addymclass" type="primary" @click="addbhymshowtf">添加域名</el-button><el-input v-else="addbdymshow" @blur="handleInputConfirm" @keyup.enter.native="handleInputConfirm" ref="saveTagInput" v-model="addbdym" class="tag_input falseinput"></el-input>
         </el-form-item>
         <el-form-item label="FTP_ip">
@@ -39,7 +39,7 @@
           <el-input v-model="dataftp.htmm"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" class="addbutton" @click="addftp" round>添加</el-button>
+          <el-button type="success" class="addbutton" @click="tijiao('dataftp')" round>添加</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -75,6 +75,7 @@
         methods: {
           addftp(){
             let _this=this;
+
             this.$axios.post("addftp",`yyks=${_this.dataftp.yyks}&ym=${_this.dataftp.ym}&&FTP_ip=${_this.dataftp.FTP_ip}&FTPdk=${_this.dataftp.FTPdk}&FTPzh=${_this.dataftp.FTPzh}&FTPmm=${_this.dataftp.FTPmm}&htdz=${_this.dataftp.htdz}&htzh=${_this.dataftp.htzh}&htmm=${_this.dataftp.htmm}&cjdate=${_this.dataftp.cjdate}&children=${_this.dataftp.children}`).then((success)=>{
               console.log(success);
             })
@@ -82,9 +83,18 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
-            tijiao() {
-                // this.$refs.upload.submit();
-                this.$refs.uploadExcel.submit();//uploadExcel  el-upload ref='uploadExcel'   需要对应
+            tijiao(dataftp) {
+            let _this=this;
+            console.log(this.dataftp.children);
+            this.$refs[dataftp].validate((valid)=>{
+              if (valid){
+                _this.$axios.post("addftp",`yyks=${_this.dataftp.yyks}&ym=${_this.dataftp.ym}&&FTP_ip=${_this.dataftp.FTP_ip}&FTPdk=${_this.dataftp.FTPdk}&FTPzh=${_this.dataftp.FTPzh}&FTPmm=${_this.dataftp.FTPmm}&htdz=${_this.dataftp.htdz}&htzh=${_this.dataftp.htzh}&htmm=${_this.dataftp.htmm}&cjdate=${_this.dataftp.cjdate}&children=${_this.dataftp.children}`).then((success)=>{
+                  console.log(success);
+                })
+              } else{
+                return false;
+              }
+            })
             },
             deletebym(index){
                 this.dataftp.children.splice(index,1);
@@ -97,7 +107,7 @@
             },
             handleInputConfirm(){
                 if(this.addbdym!=""){
-                    this.dataftp.children.push({ym:this.addbdym});
+                    this.dataftp.children.push(this.addbdym);
                 }
                 this.addbdymshow=true;
                 this.addbdym="";

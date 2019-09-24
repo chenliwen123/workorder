@@ -83,7 +83,6 @@
                    if (valid){
                        _this.$axios.post("addgongdan",`ym=${this.ruleForm.yuming}&leixing=${this.ruleForm.leixing}&description=${this.ruleForm.description}&fileurl=${this.ruleForm.fileurl}&xdr=${this.$cookie.get('name')}`).then(function (success) {
                            if(success.data.code==1){
-                           //    _this.$refs.uploadExcel.submit();//uploadExcel  el-upload ref='uploadExcel'   需要对应
                                _this.$message({
                                    type:"success",
                                    message:"提交成功"
