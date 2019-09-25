@@ -69,8 +69,10 @@
             }
         },
         mounted() {
+            let _this=this;
             this.$store.commit('menusum');
-          this.$store.commit('menudefaultzt','2');//改变左侧激活状态
+            this.$store.commit('menudefaultzt','2');//改变左侧激活状态
+
         },
         methods: {
           addftp(){

@@ -74,9 +74,6 @@
                 this.$store.commit('menudefaultzt','1-5');//改变左侧激活状态
         },
         methods:{
-            beforeRemove(file, fileList) {
-                return this.$confirm(`确定移除 ${ file.name }？`);
-            },
             tijiao(ruleForm){
                 let _this=this;
                this.$refs[ruleForm].validate((valid)=>{

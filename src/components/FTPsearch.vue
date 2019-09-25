@@ -8,9 +8,8 @@
       <el-table
       :data="dataftp"
       default-expand-all
-      row-key="ym"
-      width="100%"
-      >
+      row-key="id"
+      width="100%">
         <el-table-column prop="yyks" label="医院科室"></el-table-column>
         <el-table-column prop="ym" label="域名"></el-table-column>
         <el-table-column prop="FTP_ip" width="130" label="FTP_ip"></el-table-column>
@@ -20,7 +19,11 @@
         <el-table-column prop="htdz" width="250" label="后台地址"></el-table-column>
         <el-table-column prop="htzh" width="100" label="账号"></el-table-column>
         <el-table-column prop="htmm" label="密码"></el-table-column>
-        <el-table-column prop="cjdate" label="创建时间"></el-table-column>
+        <el-table-column prop="cjdate" label="创建时间">
+          <template slot-scope="scope">
+            {{scope.row.cjdate|formatDate}}
+          </template>
+        </el-table-column>
         <el-table-column>
           <template slot-scope="scope">
             <el-button size="mini" type="primary" v-if="scope.row.id==true" @click="FTParticle">修改</el-button>
@@ -37,6 +40,7 @@
 </template>
 
 <script>
+  import {formatDate} from '../assets/js/date'
     export default {
         name: "FTPsearch.vue",
         data(){
@@ -45,7 +49,7 @@
                 total:20,
                 dataftp:[
                     {
-                        id:1,
+                        id:3,
                         yyks:"大连九州医院",
                         ym:"mobile.8421111.com",
                         FTP_ip:"115.159.195.151",
@@ -57,8 +61,8 @@
                         htmm:"oOekr94DQRbrKzAr",
                         cjdate:"2019-08-16",
                         children:[
-                            {ym:"wapzzrl.tjyy120.com",},
-                            {ym:"www.dljz-nk.com",}
+                            {id:1,ym:"wapzzrl.tjyy120.com",},
+                            {id:2,ym:"www.dljz-nk.com",}
                         ]
                     },
                 ]
@@ -74,10 +78,16 @@
         },
         mounted() {
             let _this=this;
-            this.$axios.post("gongdannum").then(function (success) {
-                _this.$store.commit('menusum',success.data);
-            })// 请求数据刷新 工单的个数 进行赋值
-        }
+            this.$store.commit('menudefaultzt','2');//改变左侧激活状态
+          //   this.$axios.post('ftplist').then((success)=>{
+          //   _this.dataftp=success.data;
+          // })
+        },
+      filters:{
+          formatDate(time){
+              return formatDate(time);
+          }
+      }
     }
 </script>
 
