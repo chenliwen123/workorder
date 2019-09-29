@@ -12,30 +12,27 @@ export default{
         confirmButtonText:"确定",
         cancelButtonText:"取消",
         type:"warning",
-        callback:function (action,instance) {
-          console.log(action);
-        }
-      }).then(async()=> {
-        axios.post("delete_article",`id=${data.id}`).then(function (success) {//实现数据库中删除
-          if (success.data==1){
+        callback:function (action, instance) {
+          if (action=='confirm'){
+            axios.post("delete_article",`id=${data.id}`).then(function (success) {//实现数据库中删除
+              if (success.data==1){
+                Message({
+                  message:"删除成功",
+                  type:"success"
+                });
+                _this.$store.commit("menusum");
+                _this.tableData.splice(data.index,1);
+              }
+            })
+          }else if (action=='cancel'){
             Message({
-              message:"删除成功",
-              type:"success"
+              message:"取消删除",
+              type:"info",
             });
-            _this.$store.commit("menusum");
-            _this.back.deleteback=1;
+
           }
-        })
-      }).catch(()=> {
-        Message({
-          message:"取消删除",
-          type:"info",
-        });
-        _this.back.deleteback=0;
-      });
-    },
-      Vue.prototype.back={
-         deleteback:null,
-      }
+        }
+      })
+    }
   }
 }

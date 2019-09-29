@@ -116,6 +116,7 @@ export default {
         sum:1,//当前页
         pageshow:true,
         allgongdan:0,
+        gaibian:null
         // listdata:['域名解析','整站复制','整站上传','域名续费','域名备案','域名转移','网站恢复','网站修改','专题复制','专题修改','专题复制','整站修改','专题制作']
     }
   },
@@ -142,9 +143,8 @@ export default {
       article_id;
       this.$router.push({path:`/article_article/${article_id}`});
     },
-    deletework:function (id,index,dqzt) {
-        this.deletework1({id});
-        console.log(this.back.deleteback);
+    deletework:function (id,index) {
+        this.deletework1({id,index});
     },
       handleCurrentChange:function(val){
           let _this=this;
@@ -185,6 +185,18 @@ export default {
           this.pagination=true;
       },
   },
+    moutent(){
+      console.log('moutent');
+    },
+    beforeUpdate(){
+        console.log('beforeUpdate');
+    },
+    updated(){
+        console.log('updated');
+    },
+    beforeDestroy(){
+        console.log('beforeDestroy');
+    },
     filters:{
         //时间戳
         formatDate(time) {
@@ -199,7 +211,6 @@ export default {
   .el-table__footer-wrapper, .el-table__header-wrapper{cursor: pointer;}
   .el-table .cell{text-align:center;}
   .el-table-column{height:70px;}
-  .ymchangd{widows:;}
   .el-badge[data-v-12e714f6] >>> .el-badge__content{top:5px;}
   .ymchangd td{font-size:23px;}
   .el-table[data-v-12e714f6] >>> td.yuming div{word-wrap: break-word;-webkit-line-clamp:2;-webkit-box-orient: vertical;display:-webkit-box;}
