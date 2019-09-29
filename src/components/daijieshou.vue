@@ -143,12 +143,8 @@ export default {
       this.$router.push({path:`/article_article/${article_id}`});
     },
     deletework:function (id,index,dqzt) {
-        this.$store.dispatch('deletework',{id,dqzt}).then(function (success) {
-            console.log(success)
-        })
-       // if (this.$store.state.text=='xiaoming'){
-       //     this.tableData.splice(index,1);//实现组件中数组删除
-       // }
+        this.deletework1({id});
+        console.log(this.back.deleteback);
     },
       handleCurrentChange:function(val){
           let _this=this;

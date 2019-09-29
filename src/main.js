@@ -6,6 +6,7 @@ import ElemntUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 import Vuex from 'vuex'
+import config from './config/config'
 import Store from './store/index.js'
 import router from './router'
 import Vuecookie from'vue-cookie'
@@ -165,6 +166,7 @@ Vue.use(CascaderPanel);
 
 Vue.use(Loading.directive);
 Vue.use(Vuecookie);
+Vue.use(config);
 
 Vue.prototype.$loading = Loading.service;
 Vue.prototype.$msgbox = MessageBox;
