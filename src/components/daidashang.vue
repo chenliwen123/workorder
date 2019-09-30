@@ -106,8 +106,6 @@
 </template>
 
 <script>
-import {formatDate} from "../assets/js/date";
-
 export default {
   name: 'daidashang',
   data(){
@@ -164,11 +162,6 @@ export default {
         this.$store.commit('menudefaultzt','1-3');//改变左侧激活状态
         this.daidashanglist();//获取当前列表
     },
-    filters:{
-      formatDate(time){
-          return formatDate(time);
-      }
-    }
 }
 </script>
 

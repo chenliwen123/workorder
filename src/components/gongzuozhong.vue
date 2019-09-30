@@ -81,7 +81,6 @@
 </template>
 
 <script>
-    import {formatDate} from '@/assets/js/date.js'
 export default {
   name: 'gongzuozhong',
   data(){
@@ -125,12 +124,6 @@ export default {
             this.gongzuozhonglist();
         this.$store.commit('menudefaultzt','1-2');//改变左侧激活状态
     },
-    filters:{
-        //时间戳
-        formatDate(time) {
-            return formatDate(time);
-        },
-    }
 }
 </script>
 

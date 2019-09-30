@@ -40,7 +40,6 @@
 </template>
 
 <script>
-  import {formatDate} from '../assets/js/date'
     export default {
         name: "FTPsearch.vue",
         data(){
@@ -82,12 +81,7 @@
           //   this.$axios.post('ftplist').then((success)=>{
           //   _this.dataftp=success.data;
           // })
-        },
-      filters:{
-          formatDate(time){
-              return formatDate(time);
-          }
-      }
+        }
     }
 </script>
 

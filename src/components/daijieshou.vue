@@ -104,7 +104,7 @@
 </template>
 
 <script>
-    import {formatDate} from '@/assets/js/date.js'
+    // import {formatDate} from '@/assets/js/date.js'
 export default {
   name: 'daijieshou',
   data(){
@@ -185,24 +185,6 @@ export default {
           this.pagination=true;
       },
   },
-    moutent(){
-      console.log('moutent');
-    },
-    beforeUpdate(){
-        console.log('beforeUpdate');
-    },
-    updated(){
-        console.log('updated');
-    },
-    beforeDestroy(){
-        console.log('beforeDestroy');
-    },
-    filters:{
-        //时间戳
-        formatDate(time) {
-            return formatDate(time);
-        },
-    }
 }
 </script>
 

@@ -109,7 +109,6 @@
 </template>
 
 <script>
-  import {formatDate} from "@/assets/js/date"
 export default {
   name: 'yiwancheng',
   data(){
@@ -144,11 +143,6 @@ export default {
             this.$store.commit('menusum');
             this.yiwanchenglist();
             this.$store.commit('menudefaultzt','1-4');//改变左侧激活状态
-    },
-    filters:{
-      formatDate(time){
-          return formatDate(time);
-      }
     }
 }
 </script>
