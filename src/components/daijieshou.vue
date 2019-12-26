@@ -81,7 +81,7 @@
         <template slot-scope="scope">
           <el-button size="mini" type="success" @click="jieshou(scope.row.id)" v-if="scope.row.dqzt==1">接收</el-button>
           <el-button size="mini" type="info" @click="xiangqing(scope.row.id)">查看</el-button>
-          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index,scope.row.dqzt)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

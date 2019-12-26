@@ -3,6 +3,7 @@
     <el-table
       :data="tableData"
       style="width: 100%;margin-bottom: 20px;"
+      height="800px"
       row-key="id"
       default-expand-all
       @cell-dblclick="xiangqing"
@@ -87,7 +88,7 @@
         </template>
         <template slot-scope="scope">
           <el-button size="mini" type="info" @click="xiangqing(scope.row.id)">查看</el-button>
-          <el-button size="mini" type="danger" @click="deletework(scope.row.id)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -120,8 +121,8 @@ export default {
       article_id=row.id?row.id:row;
       this.$router.push({path:`/article_article/${article_id}`});
     },//进入详情页方法
-    deletework:function (id) {
-      console.log(id);
+    deletework:function (id,index) {
+     this.deletework1({id,index});
     },/*删除方法*/
      handleSelectionChange(selection){
          this.dashang=[];

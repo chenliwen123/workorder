@@ -90,7 +90,9 @@ import {
   Message,
   Notification
 } from 'element-ui';
-
+import conf from './../config/conf'
+Vue.prototype.$conf=conf;
+console.log(conf);
 Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(Autocomplete);
@@ -185,6 +187,8 @@ Vue.prototype.$store=Store;//转换成全局属性
 axios.defaults.baseURL="http://localhost:10242/index/Index/";
 axios.defaults.headers['Content-Type']='Application/x-www-form-urlencoded';
 // axios.defaults.withCredentials=true;
+
+
 Object.keys(filters).forEach(k => {
   Vue.filter(k, filters[k])
 })

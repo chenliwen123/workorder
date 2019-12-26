@@ -29,7 +29,6 @@ export default{
               message:"取消删除",
               type:"info",
             });
-
           }
         }
       })
