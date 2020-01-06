@@ -7,6 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 import Vuex from 'vuex'
 import config from './config/config'
+import filters from './filters/filters'
 import Store from './store/index.js'
 import router from './router'
 import Vuecookie from'vue-cookie'
@@ -89,7 +90,6 @@ import {
   Message,
   Notification
 } from 'element-ui';
-
 Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(Autocomplete);
@@ -168,6 +168,7 @@ Vue.use(Loading.directive);
 Vue.use(Vuecookie);
 Vue.use(config);
 
+
 Vue.prototype.$loading = Loading.service;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
@@ -184,6 +185,10 @@ axios.defaults.baseURL="http://localhost:10242/index/Index/";
 axios.defaults.headers['Content-Type']='Application/x-www-form-urlencoded';
 // axios.defaults.withCredentials=true;
 
+
+Object.keys(filters).forEach(k => {
+  Vue.filter(k, filters[k])
+})
 
 //路由跳转前做判断
 router.beforeEach((to, from, next) => {

@@ -81,7 +81,7 @@
         <template slot-scope="scope">
           <el-button size="mini" type="success" @click="jieshou(scope.row.id)" v-if="scope.row.dqzt==1">接收</el-button>
           <el-button size="mini" type="info" @click="xiangqing(scope.row.id)">查看</el-button>
-          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index,scope.row.dqzt)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-    import {formatDate} from '@/assets/js/date.js'
+    // import {formatDate} from '@/assets/js/date.js'
 export default {
   name: 'daijieshou',
   data(){
@@ -185,24 +185,6 @@ export default {
           this.pagination=true;
       },
   },
-    moutent(){
-      console.log('moutent');
-    },
-    beforeUpdate(){
-        console.log('beforeUpdate');
-    },
-    updated(){
-        console.log('updated');
-    },
-    beforeDestroy(){
-        console.log('beforeDestroy');
-    },
-    filters:{
-        //时间戳
-        formatDate(time) {
-            return formatDate(time);
-        },
-    }
 }
 </script>
 
