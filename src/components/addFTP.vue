@@ -72,7 +72,6 @@
             let _this=this;
             this.$store.commit('menusum');
             this.$store.commit('menudefaultzt','2');//改变左侧激活状态
-
         },
         methods: {
           addftp(){
@@ -91,7 +90,22 @@
             this.$refs[dataftp].validate((valid)=>{
               if (valid){
                 _this.$axios.post("addftp",`yyks=${_this.dataftp.yyks}&ym=${_this.dataftp.ym}&&FTP_ip=${_this.dataftp.FTP_ip}&FTPdk=${_this.dataftp.FTPdk}&FTPzh=${_this.dataftp.FTPzh}&FTPmm=${_this.dataftp.FTPmm}&htdz=${_this.dataftp.htdz}&htzh=${_this.dataftp.htzh}&htmm=${_this.dataftp.htmm}&cjdate=${_this.dataftp.cjdate}&children=${_this.dataftp.children}`).then((success)=>{
-                  console.log(success);
+                  if (success.data==0){
+                      _this.$message({
+                          type:"error",
+                          message:"主域名重复了"
+                      });
+                  }else if(success.data==0.1){
+                      _this.$message({
+                          type:"error",
+                          message:"子域名重复"
+                      })
+                    }else{
+                      _this.$message({
+                          type:"success",
+                          message:"添加成功"
+                      })
+                    }
                 })
               } else{
                 return false;

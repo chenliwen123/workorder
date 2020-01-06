@@ -26,13 +26,14 @@
         </el-table-column>
         <el-table-column>
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" v-if="scope.row.id==true" @click="FTParticle">修改</el-button>
-            <el-button size="mini" type="danger"  v-if="scope.row.id==true">删除</el-button>
+            <el-button size="mini" v-if="scope.row.cjdate" type="primary" @click="FTParticle">修改</el-button>
+            <el-button size="mini" v-if="scope.row.cjdate" type="danger">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
         :page-size="10"
+        v-if="total>10"
         :total="total"
         layout="total,prev,pager,next"
       ></el-pagination>
@@ -40,32 +41,13 @@
 </template>
 
 <script>
-  import {formatDate} from '../assets/js/date'
     export default {
         name: "FTPsearch.vue",
         data(){
             return {
                 search:"",
-                total:20,
-                dataftp:[
-                    {
-                        id:3,
-                        yyks:"大连九州医院",
-                        ym:"mobile.8421111.com",
-                        FTP_ip:"115.159.195.151",
-                        FTPdk:"21",
-                        FTPzh:"mobile8421111com",
-                        FTPmm:"g8bMhd1cVmDvtill",
-                        htdz:"adminmob.84211111.com/bhde",
-                        htzh:"admin",
-                        htmm:"oOekr94DQRbrKzAr",
-                        cjdate:"2019-08-16",
-                        children:[
-                            {id:1,ym:"wapzzrl.tjyy120.com",},
-                            {id:2,ym:"www.dljz-nk.com",}
-                        ]
-                    },
-                ]
+                total:9,
+                dataftp:[]
             }
         },
         methods:{
@@ -79,15 +61,10 @@
         mounted() {
             let _this=this;
             this.$store.commit('menudefaultzt','2');//改变左侧激活状态
-          //   this.$axios.post('ftplist').then((success)=>{
-          //   _this.dataftp=success.data;
-          // })
-        },
-      filters:{
-          formatDate(time){
-              return formatDate(time);
-          }
-      }
+             this.$axios.post('ftplist').then((success)=>{
+             _this.dataftp=success.data;
+           })
+        }
     }
 </script>
 

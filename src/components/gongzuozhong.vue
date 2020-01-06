@@ -68,7 +68,7 @@
         <template slot-scope="scope">
           <el-button size="mini" type="success" @click="wancheng(scope.row.id)">完成</el-button>
           <el-button size="mini" type="info" @click="xiangqing(scope.row.id)">查看</el-button>
-          <el-button size="mini" type="danger" @click="deletework(scope.row.id)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -81,7 +81,6 @@
 </template>
 
 <script>
-    import {formatDate} from '@/assets/js/date.js'
 export default {
   name: 'gongzuozhong',
   data(){
@@ -96,9 +95,8 @@ export default {
       article_id=row.id?row.id:row;
       this.$router.push({path:`/article_article/${article_id}`});
     },
-    deletework:function (id) {
-      console.log(id);
-      //删除工单 用的相应id  axios 提交删除
+    deletework:function (id,index) {
+       this.deletework1({id,index});
     },
       gongzuozhonglist(){
         let _this=this;
@@ -125,12 +123,6 @@ export default {
             this.gongzuozhonglist();
         this.$store.commit('menudefaultzt','1-2');//改变左侧激活状态
     },
-    filters:{
-        //时间戳
-        formatDate(time) {
-            return formatDate(time);
-        },
-    }
 }
 </script>
 

@@ -4,6 +4,7 @@
       :data="tableData"
       style="width: 100%;margin-bottom: 20px;"
       row-key="id"
+      height="800px"
       default-expand-all
       @cell-dblclick="xiangqing"
       class="table_tbody_tr">
@@ -95,7 +96,7 @@
         </template>
         <template slot-scope="scope">
           <el-button size="mini" type="info" @click="xiangqing(scope.row.id)">查看</el-button>
-          <el-button size="mini" type="danger" @click="deletework(scope.row.id)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deletework(scope.row.id,scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -109,7 +110,6 @@
 </template>
 
 <script>
-  import {formatDate} from "@/assets/js/date"
 export default {
   name: 'yiwancheng',
   data(){
@@ -124,8 +124,8 @@ export default {
       article_id=row.id?row.id:row;
       this.$router.push({path:`/article_article/${article_id}`});
     },
-    deletework:function (id) {
-      console.log(id);
+    deletework:function (id,index) {
+      this.deletework1({id,index});
     },
     yiwanchenglist:function(){
         let _this=this;
@@ -144,11 +144,6 @@ export default {
             this.$store.commit('menusum');
             this.yiwanchenglist();
             this.$store.commit('menudefaultzt','1-4');//改变左侧激活状态
-    },
-    filters:{
-      formatDate(time){
-          return formatDate(time);
-      }
     }
 }
 </script>
