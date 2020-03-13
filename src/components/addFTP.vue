@@ -15,7 +15,7 @@
         </el-form-item>
         <el-form-item label="绑定域名">
          <el-tag v-for="(item,index) of dataftp.children" :key="index" closable @close="deletebym(index)">{{item}}</el-tag>
-          <el-button v-if="addbdymshow" class="addymclass" type="primary" @click="addbhymshowtf">添加域名</el-button><el-input v-else="addbdymshow" @blur="handleInputConfirm" @keyup.enter.native="handleInputConfirm" ref="saveTagInput" v-model="addbdym" class="tag_input falseinput"></el-input>
+          <el-button v-if="addbdymshow" class="addymclass" type="primary" @click="addbhymshowtf">添加域名</el-button><el-input v-else @blur="handleInputConfirm" @keyup.enter.native="handleInputConfirm" ref="saveTagInput" v-model="addbdym" class="tag_input falseinput"></el-input>
         </el-form-item>
         <el-form-item label="FTP_ip">
           <el-input v-model="dataftp.FTP_ip"></el-input>
