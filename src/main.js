@@ -183,7 +183,7 @@ Vue.prototype.$axios=axios;
 Vue.prototype.$store=Store;//转换成全局属性
 axios.defaults.baseURL="http://localhost:10242/index/Index/";
 axios.defaults.headers['Content-Type']='Application/x-www-form-urlencoded';
-// axios.defaults.withCredentials=true;
+axios.defaults.withCredentials=true;
 
 
 Object.keys(filters).forEach(k => {

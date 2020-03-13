@@ -28,8 +28,8 @@ export default {
   name: 'login.vue',
   data(){
     return{
-      name:"",
-      pas:"",
+      name:"陈立文",
+      pas:"123456",
     }
   },
   methods:{
@@ -77,4 +77,5 @@ export default {
   .loginbuttn .el-button{
     width: 100%;}
   .minwidth{min-width:320px;}
+
 </style>

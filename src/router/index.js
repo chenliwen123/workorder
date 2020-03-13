@@ -11,6 +11,7 @@ import  tijiao from '@/components/tijiao'
 import  FTPsearch from '@/components/FTPsearch'
 import  FTParticle from '@/components/FTParticle'
 import  addFTP from '@/components/addFTP'
+import  wotijiao from '@/components/wotijiao'
 
 Vue.use(Router)
 
@@ -71,6 +72,11 @@ export default new Router({
           path:'/addFTP',
           name:'addFTP',
           component:addFTP,
+        },
+        {
+          path:'/wotijiao',
+          name:'wotijiao',
+          component:wotijiao,
         },
       ]
     },
