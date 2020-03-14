@@ -71,7 +71,7 @@
         },
         mounted(){
                 this.$store.commit('menusum');
-                this.$store.commit('menudefaultzt','1-5');//改变左侧激活状态
+                this.$store.commit('menudefaultzt','1-6');//改变左侧激活状态
         },
         methods:{
             tijiao(ruleForm){

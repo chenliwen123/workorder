@@ -1,7 +1,7 @@
 <template>
   <div class="main_flex">
     <div class="main_right">
-      <el-form label-width="100px" :model="dataftp">
+      <el-form label-width="100px" :model="dataftp" ref="dataftp">
         <h2 class="el-text">FTP信息详情</h2>
         <el-form-item label="医院科室" prop="yyks" :rules="[
         {required:true,messages:'医院科室不能为空'}
@@ -11,35 +11,35 @@
         <el-form-item label="域名" prop="ym" :rules="[
         {required:true,messages:'域名不能为空'}
         ]">
-          <el-input :value="dataftp.ym"></el-input>
+          <el-input v-model="dataftp.ym"></el-input>
         </el-form-item>
         <el-form-item label="绑定域名">
           <el-tag v-for="(item,index) of dataftp.children" :key="index" closable @close="deletebym(index)">{{item.ym}}</el-tag>
-          <el-button v-if="addbdymshow" class="addymclass" type="primary" @click="addbhymshowtf">添加域名</el-button><el-input v-else="addbdymshow" @blur="handleInputConfirm" @keyup.enter.native="handleInputConfirm" ref="saveTagInput" v-model="addbdym" class="tag_input falseinput"></el-input>
+          <el-button v-if="addbdymshow" class="addymclass" type="primary" @click="addbhymshowtf">添加域名</el-button><el-input v-else @blur="handleInputConfirm" @keyup.enter.native="handleInputConfirm" ref="saveTagInput" v-model="addbdym" class="tag_input falseinput"></el-input>
         </el-form-item>
         <el-form-item label="FTP_ip">
-          <el-input :value="dataftp.FTP_ip"></el-input>
+          <el-input v-model="dataftp.FTP_ip"></el-input>
         </el-form-item>
         <el-form-item label="FTP端口">
-          <el-input :value="dataftp.FTPdk"></el-input>
+          <el-input v-model="dataftp.FTPdk"></el-input>
         </el-form-item>
         <el-form-item label="FTP账号">
-          <el-input :value="dataftp.FTPzh"></el-input>
+          <el-input v-model="dataftp.FTPzh"></el-input>
         </el-form-item>
         <el-form-item label="FTP密码">
-          <el-input :value="dataftp.FTPmm"></el-input>
+          <el-input v-model="dataftp.FTPmm"></el-input>
         </el-form-item>
         <el-form-item label="后台地址">
-          <el-input :value="dataftp.htdz"></el-input>
+          <el-input v-model="dataftp.htdz"></el-input>
         </el-form-item>
         <el-form-item label="账号">
-        <el-input :value="dataftp.htzh"></el-input>
+        <el-input v-model="dataftp.htzh"></el-input>
       </el-form-item>
         <el-form-item label="密码">
-          <el-input :value="dataftp.htmm"></el-input>
+          <el-input v-model="dataftp.htmm"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" class="uptatebutton" round>确定修改</el-button>
+          <el-button type="success" @click="tijiao('dataftp')" class="uptatebutton" round>确定修改</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -53,23 +53,7 @@
             return{
                 addbdymshow:true,
                 addbdym:"",
-                dataftp:{
-                        id:1,
-                        yyks:"大连九州医院",
-                        ym:"mobile.8421111.com",
-                        FTP_ip:"115.159.195.151",
-                        FTPdk:"21",
-                        FTPzh:"mobile8421111com",
-                        FTPmm:"g8bMhd1cVmDvtill",
-                        htdz:"adminmob.84211111.com/bhde",
-                        htzh:"admin",
-                        htmm:"oOekr94DQRbrKzAr",
-                        cjdate:"2019-08-16",
-                        children:[
-                            {ym:"wapzzrl.tjyy120.com",},
-                            {ym:"www.dljz-nk.com",}
-                        ]
-                    },
+                dataftp:{},
             }
         },
         mounted(){
@@ -77,16 +61,46 @@
             this.$axios.post("gongdannum").then(function (success) {
                 _this.$store.commit('menusum',success.data);
             })// 请求数据刷新 工单的个数 进行赋值
+            this.$axios.post('ftparticle','id='+this.$route.params.id).then((success)=>{
+              _this.dataftp=success.data[0];
+            })
             //this.$route.params.id    路由请求ID
         },
         methods:{
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${ file.name }？`);
             },
-            tijiao(){
-                // this.$refs.upload.submit();
-                this.$refs.uploadExcel.submit();//uploadExcel  el-upload ref='uploadExcel'   需要对应
+            tijiao(dataftp){
+              const _this=this;
+                 this.$refs[dataftp].validate((valid)=>{
+                   if(valid){
+                     _this.$axios.post('ftpupdate',`id=${_this.dataftp.id}&yyks=${_this.dataftp.yyks}&ym=${_this.dataftp.ym}&&FTP_ip=${_this.dataftp.FTP_ip}&FTPdk=${_this.dataftp.FTPdk}&FTPzh=${_this.dataftp.FTPzh}&FTPmm=${_this.dataftp.FTPmm}&htdz=${_this.dataftp.htdz}&htzh=${_this.dataftp.htzh}&htmm=${_this.dataftp.htmm}&cjdate=${_this.dataftp.cjdate}&children=${_this.dataftp.children}`).then((success)=>{
+                        if(success.data==1){
+                          _this.$message({
+                            message:'修改成功',
+                            type:'success'
+                          })
+                          _this.$router.push({path:`/FTPsearch`});
+                          console.log(_this.$route);
+                        } else if(success.data==2){
+                          _this.$alert('未做任何修改',{
+                            confirmButtonText: '确定',
+                            type:'error'
+                          })
+                        }else{
+                          _this.$alert('修改失败',{
+                            confirmButtonText: '确定',
+                            type:'error'
+                          })
+                        }
+                     })
+                   }else{
+                     return false;
+                   }
+                 });
             },
+
+
             deletebym(index){
                 this.dataftp.children.splice(index,1);
             },

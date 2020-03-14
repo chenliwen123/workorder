@@ -132,9 +132,9 @@ export default {
           })
          //   这个方法是把全选的id  存在数组里面,然后后续打赏的时候都提交过去   后台批量打赏
       },
-      daidashanglist(){
+      wotijiaolist(){
         let _this=this;
-        this.$axios.post('daidashanglist').then(function (success) {
+        this.$axios.post('wotijiaolist').then(function (success) {
             _this.tableData=success.data;
         })
       },//渲染列表
@@ -160,8 +160,8 @@ export default {
   },
     mounted() {
         this.$store.commit('menusum');//改变左侧菜单显示个数
-        this.$store.commit('menudefaultzt','1-3');//改变左侧激活状态
-        this.daidashanglist();//获取当前列表
+        this.$store.commit('menudefaultzt','1-6');//改变左侧激活状态
+        this.wotijiaolist();//获取当前列表
     },
 }
 </script>

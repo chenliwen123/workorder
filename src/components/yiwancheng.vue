@@ -143,7 +143,7 @@ export default {
     mounted() {
             this.$store.commit('menusum');
             this.yiwanchenglist();
-            this.$store.commit('menudefaultzt','1-4');//改变左侧激活状态
+            this.$store.commit('menudefaultzt','1-6');//改变左侧激活状态
     }
 }
 </script>

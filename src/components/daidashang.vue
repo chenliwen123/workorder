@@ -7,9 +7,7 @@
       row-key="id"
       default-expand-all
       @cell-dblclick="xiangqing"
-      @selection-change="handleSelectionChange"
       class="table_tbody_tr">
-      <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column
         prop="id"
         min-width="80"
@@ -98,11 +96,6 @@
       layout="total,prev,pager,next"
       @current-change="handleCurrentChange"
     ></el-pagination>
-    <el-button-group>
-      <el-button type="success" @click="dashang11(1)">优<i class="el-icon-sunny el-icon--right"></i></el-button>
-      <el-button type="warning" @click="dashang11(2)">良<i class="el-icon-sunrise-1 el-icon--right"></i></el-button>
-      <el-button type="danger" @click="dashang11(3)">差<i class="el-icon-heavy-rain el-icon--right"></i></el-button>
-    </el-button-group>
   </div>
 </template>
 
@@ -124,33 +117,12 @@ export default {
     deletework:function (id,index) {
      this.deletework1({id,index});
     },/*删除方法*/
-     handleSelectionChange(selection){
-         this.dashang=[];
-        let _this=this;
-          selection.forEach(function (value,index,arr) {
-              _this.dashang.push(value.id);
-          })
-         //   这个方法是把全选的id  存在数组里面,然后后续打赏的时候都提交过去   后台批量打赏
-      },
       daidashanglist(){
         let _this=this;
         this.$axios.post('daidashanglist').then(function (success) {
             _this.tableData=success.data;
         })
       },//渲染列表
-      dashang11(pj){
-        let _this=this;
-        this.$axios.post('dashang',`id=${_this.dashang}&pj=${pj}`).then(function (success) {
-            console.log(success.data);
-            if (success.data==1){
-                _this.$message({
-                    type:"success",
-                    message:"打赏成功",
-                })
-                _this.$router.push("/yiwancheng");
-            }
-        })
-      },//打赏
       handleCurrentChange:function(val){
           let _this=this;
           this.$axios.post("fanye",`sum=${--val}&dqzt=3`).then(function (success) {

@@ -26,7 +26,7 @@
         </el-table-column>
         <el-table-column>
           <template slot-scope="scope">
-            <el-button size="mini" v-if="scope.row.cjdate" type="primary" @click="FTParticle">修改</el-button>
+            <el-button size="mini" v-if="scope.row.cjdate" type="primary" @click="FTParticle(scope.row)">修改</el-button>
             <el-button size="mini" v-if="scope.row.cjdate" type="danger">删除</el-button>
           </template>
         </el-table-column>
@@ -72,4 +72,5 @@
 .search_bottom{margin-bottom: 20px;}
   .title_search{text-align:center;}
   .title_search button[data-v-804dfeec]{float:right;margin-top:-50px;}
+  .el-table-column{display:block;overflow-inline:hidden;white-space:nowrap;text-overflow:ellipsis;width:50px;}
 </style>
