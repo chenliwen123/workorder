@@ -27,7 +27,7 @@
         <el-table-column>
           <template slot-scope="scope">
             <el-button size="mini" v-if="scope.row.cjdate" type="primary" @click="FTParticle(scope.row)">修改</el-button>
-            <el-button size="mini" v-if="scope.row.cjdate" type="danger">删除</el-button>
+            <el-button size="mini" v-if="scope.row.cjdate" type="danger" @click="FTPdelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -56,14 +56,47 @@
             },
             FTParticle:function (	row, column, cell, event) {
                 this.$router.push({path:`/FTParticle/${row.id}`});
+            },
+            FTPdelete:function (	row, column, cell, event) {
+              let _this=this;
+              this.$confirm('确认要删除工单？','确认信息',{
+                distinguishCancelAndClose:true,
+                confirmButtonText:'确认',
+                cancelButtonText:'取消'
+              }).then(()=>{
+                _this.$axios.post('FTPdelete',`id=${row.id}`).then((success)=>{
+                if(success.data){
+                  _this.$message({
+                    type:'success',
+                    message:'成功删除'
+                  })
+                  _this.ftplist();
+                }else if(success.data==0){
+                   _this.$message({
+                    type:'error',
+                    message:'删除失败'
+                  })
+                }
+              })
+              }).catch(action => {
+                _this.$message({
+                    type:'info',
+                    message:'取消删除'
+                  })
+                
+              })
+            },
+            ftplist:function(){
+              let _this=this;
+              this.$axios.post('ftplist').then((success)=>{
+             _this.dataftp=success.data;
+           })
             }
         },
         mounted() {
             let _this=this;
             this.$store.commit('menudefaultzt','2');//改变左侧激活状态
-             this.$axios.post('ftplist').then((success)=>{
-             _this.dataftp=success.data;
-           })
+            this.ftplist();
         }
     }
 </script>
