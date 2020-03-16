@@ -70,6 +70,7 @@
             }
         },
         mounted(){
+                this.$socket.emit('my other event',2);
                 this.$store.commit('menusum');
                 this.$store.commit('menudefaultzt','1-6');//改变左侧激活状态
         },
@@ -97,6 +98,15 @@
                 this.ruleForm.fileurl=response.img;
             }
         },
+        sockets:{
+          connect:function(){
+            console.log('连接成功');//连接成功后  给的回调
+          },
+          csserver:function(data){
+            console.log(data);
+          }
+
+        }
     }
 </script>
 

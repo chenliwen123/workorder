@@ -11,6 +11,7 @@ import filters from './filters/filters'
 import Store from './store/index.js'
 import router from './router'
 import Vuecookie from'vue-cookie'
+import VueSocketIO from 'vue-socket.io'
 import {
   Pagination,
   Dialog,
@@ -184,7 +185,10 @@ Vue.prototype.$store=Store;//转换成全局属性
 axios.defaults.baseURL="http://localhost:10242/index/Index/";
 axios.defaults.headers['Content-Type']='Application/x-www-form-urlencoded';
 axios.defaults.withCredentials=true;
-
+Vue.use(new VueSocketIO({
+  debug: false,
+  connection: 'http://localhost:88/',  
+}))
 
 Object.keys(filters).forEach(k => {
   Vue.filter(k, filters[k])
