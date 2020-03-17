@@ -130,6 +130,12 @@ export default {
           });
       },//翻页
   },
+    sockets:{
+          csserver:function(data){
+            this.$store.commit('update_newwork',false);
+            this.$store.commit('update_wjzid',data.id);
+          }
+        },
     mounted() {
         this.$store.commit('menusum');//改变左侧菜单显示个数
         this.$store.commit('menudefaultzt','1-3');//改变左侧激活状态

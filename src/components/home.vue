@@ -23,6 +23,12 @@ export default {
   },
   methods:{
   },
+    sockets:{
+          csserver:function(data){
+            this.$store.commit('update_newwork',false);
+            this.$store.commit('update_wjzid',data.id);
+          }
+        },
   mounted() {
       let _this=this;
       this.$axios.post("gongdannum").then(function (success) {

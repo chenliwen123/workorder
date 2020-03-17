@@ -140,6 +140,12 @@ export default {
           });
       },//翻页
   },
+  sockets:{
+          csserver:function(data){
+            this.$store.commit('update_newwork',false);
+            this.$store.commit('update_wjzid',data.id);
+          }
+        },
     mounted() {
             this.$store.commit('menusum');
             this.yiwanchenglist();

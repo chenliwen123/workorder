@@ -99,14 +99,10 @@
             }
         },
         sockets:{
-          connect:function(){
-            console.log('连接成功');//连接成功后  给的回调
-          },
           csserver:function(data){
             this.$store.commit('update_newwork',false);
             this.$store.commit('update_wjzid',data.id);
           }
-
         }
     }
 </script>

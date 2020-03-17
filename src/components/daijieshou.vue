@@ -199,6 +199,12 @@ export default {
         }
       },
   },
+    sockets:{
+          csserver:function(data){
+            this.$store.commit('update_newwork',false);
+            this.$store.commit('update_wjzid',data.id);
+          }
+        },
 }
 </script>
 

@@ -93,6 +93,12 @@
            })
             }
         },
+          sockets:{
+          csserver:function(data){
+            this.$store.commit('update_newwork',false);
+            this.$store.commit('update_wjzid',data.id);
+          }
+        },
         mounted() {
             let _this=this;
             this.$store.commit('menudefaultzt','2');//改变左侧激活状态
