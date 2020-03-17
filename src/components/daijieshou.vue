@@ -8,7 +8,8 @@
       default-expand-all
       height="800px"
       @cell-dblclick="xiangqing"
-      row-class-name="ymchangd"
+      highlight-current-row
+      :row-class-name='tableRowClassName'
       class="table_tbody_tr">
       <el-table-column
         prop="id"
@@ -99,7 +100,6 @@
     layout="total,prev,pager,next"
     @current-change="handleCurrentChange"
   ></el-pagination>
-
   </div>
 </template>
 
@@ -129,12 +129,14 @@ export default {
         this.$store.commit('menudefaultzt','1-1');//改变左侧激活状态
         this.$axios.post("daijieshou").then(function (success) {
             _this.tableData=success.data;
-        })
+        })//前十一个工单信息
         this.$axios.post("gongdansum").then((success)=>{
-            _this.allgongdan=success.data.daijieshou
-        })
-        this.pagination=false;
-        console.log(process.env.NODE_ENV);//当前模式
+            _this.allgongdan=success.data.daijieshou;
+        })//翻页工单总数
+        this.$store.commit('update_newwork',true);
+    },
+    beforeDestroy(){
+      this.$store.commit('update_wjzid',null);
     },
   methods:{
     xiangqing:function (row,column,event,cell,id) {
@@ -158,7 +160,6 @@ export default {
               _this.tableData=success.data;
           });
       },
-
       jieshou(id){
           let _this=this;
           this.$axios.post("jieshou",`id=${id}`).then(function (success) {
@@ -169,9 +170,15 @@ export default {
                   });
                   _this.$router.push({path:"/gongzuozhong"});
               }else if (success.data==0){
-                  console.log("好像已经被人接走了");
+                _this.$message({
+                      type:"success",
+                      message:"好像已经被人接走了"
+                  });
               }else{
-                  console.log("出现错误了");
+                _this.$message({
+                      type:"success",
+                      message:"出现错误了"
+                  });
               }
           })
       },
@@ -184,12 +191,24 @@ export default {
         })
           this.pagination=true;
       },
+      tableRowClassName(row){
+      for(let i=0;i<this.$store.state.wjzid.length;i++){
+           if(row.row.id==this.$store.state.wjzid[i]){
+              return 'ymchangd'
+            }
+        }
+      },
   },
 }
 </script>
 
 <style scoped>
   .expanded{cursor:pointer;}
+  /deep/ .ymchangd{animation: guodu 4s;}
+  @keyframes guodu{
+    0%{background:#a47deb;}
+    100%{background:#fff;}
+  }
   .el-table__footer-wrapper, .el-table__header-wrapper{cursor: pointer;}
   .el-table .cell{text-align:center;}
   .el-table-column{height:70px;}

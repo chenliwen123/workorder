@@ -70,7 +70,6 @@
             }
         },
         mounted(){
-                this.$socket.emit('my other event',2);
                 this.$store.commit('menusum');
                 this.$store.commit('menudefaultzt','1-6');//改变左侧激活状态
         },
@@ -85,6 +84,7 @@
                                    type:"success",
                                    message:"提交成功"
                                });
+                               _this.$socket.emit('addworkd',{id:success.data.id});
                                _this.$router.push({path:`/daijieshou`});
                            }
                        });
@@ -103,7 +103,8 @@
             console.log('连接成功');//连接成功后  给的回调
           },
           csserver:function(data){
-            console.log(data);
+            this.$store.commit('update_newwork',false);
+            this.$store.commit('update_wjzid',data.id);
           }
 
         }

@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import {MessageBox,Message} from 'element-ui'
-import axios from 'axios'
-axios.defaults.baseURL="http://localhost:10242/index/Index/";
-axios.defaults.headers['Content-Type']='Application/x-www-form-urlencoded';
-axios.defaults.withCredentials=true;
+import axios from '../axios/index'
 export default{
   install(Vue,options){
     Vue.prototype.deletework1=function(data){

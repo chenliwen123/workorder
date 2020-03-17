@@ -5,7 +5,7 @@
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-menu"></i>
-              <span slot="title">工单列表</span>
+              <span slot="title"><el-badge is-dot :hidden="this.$store.state.newwork">工单列表</el-badge></span>
             </template>
             <router-link to="/daijieshou"><el-menu-item index="1-1"><el-badge :value="this.$store.state.gongdan.daijieshou" :max="99" class="item" type="primary">待接收</el-badge></el-menu-item></router-link>
             <router-link to="/gongzuozhong"><el-menu-item index="1-2"><el-badge :value="this.$store.state.gongdan.gongzuozhong" :max="99" type="success">工作中</el-badge></el-menu-item></router-link>

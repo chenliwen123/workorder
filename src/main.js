@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import ElemntUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import axios from 'axios'
+import axios from './axios/index'
 import Vuex from 'vuex'
 import config from './config/config'
 import filters from './filters/filters'
@@ -179,14 +179,11 @@ Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;
 Vue.config.productionTip = false
 
+Vue.prototype.$store=Store;//转换成全局属性
 
 Vue.prototype.$axios=axios;
-Vue.prototype.$store=Store;//转换成全局属性
-axios.defaults.baseURL="http://localhost:10242/index/Index/";
-axios.defaults.headers['Content-Type']='Application/x-www-form-urlencoded';
-axios.defaults.withCredentials=true;
 Vue.use(new VueSocketIO({
-  debug: false,
+  debug: true,
   connection: 'http://localhost:88/',  
 }))
 
