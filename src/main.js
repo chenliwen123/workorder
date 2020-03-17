@@ -183,7 +183,7 @@ Vue.prototype.$store=Store;//转换成全局属性
 
 Vue.prototype.$axios=axios;
 Vue.use(new VueSocketIO({
-  debug: true,
+  debug: false,
   connection: 'http://192.168.255.80:88',  
 }))
 

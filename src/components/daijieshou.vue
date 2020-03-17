@@ -77,7 +77,7 @@
       </el-table-column>
       <el-table-column align="center" min-width="220">
         <template slot="header" slot-scope="scope">
-          <el-input v-model="search" size="mini" @keyup.enter.native="searchdjs()" placeholder="请输入关键词搜索"></el-input>
+          <el-input v-model="search" size="mini" @input="searchdjs()" placeholder="请输入关键词搜索"></el-input>
         </template>
         <template slot-scope="scope">
           <el-button size="mini" type="success" @click="jieshou(scope.row.id)" v-if="scope.row.dqzt==1">接收</el-button>
@@ -184,7 +184,6 @@ export default {
       },
       searchdjs(){
         let _this=this;
-        this.search;
         this.$axios.post("searchdjs",`info=${_this.search}`).then((success)=>{
             _this.tableData=success.data[1];
             _this.searchall=success.data[0];
