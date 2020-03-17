@@ -21,7 +21,7 @@
      label="域名"
      sortable
    class-name="yuming">
-   </el-table-column>
+   </el-table-column> 
       <el-table-column
         prop="leixing"
         label="工单类型"
@@ -201,8 +201,17 @@ export default {
   },
     sockets:{
           csserver:function(data){
-            this.$store.commit('update_newwork',false);
             this.$store.commit('update_wjzid',data.id);
+            let _this=this;
+            this.$store.commit('menusum');//刷新左侧个数
+            this.$store.commit('menudefaultzt','1-1');//改变左侧激活状态
+            this.$axios.post("daijieshou").then(function (success) {
+                _this.tableData=success.data;
+            })//前十一个工单信息
+            this.$axios.post("gongdansum").then((success)=>{
+                _this.allgongdan=success.data.daijieshou;
+            })//翻页工单总数
+            this.$store.commit('update_newwork',true);
           }
         },
 }
