@@ -10,18 +10,19 @@
       class="table_tbody_tr">
       <el-table-column
         prop="id"
-        width="80"
+        min-width="40"
         label="id">
       </el-table-column>
       <el-table-column
         prop="ym"
         label="域名"
+        min-width="130"
         sortable>
       </el-table-column>
       <el-table-column
         prop="leixing"
         label="工单类型"
-        min-width="120"
+        min-width="95"
         sortable>
         <template slot-scope="scope">
           <el-tag label="1" v-if="scope.row.leixing==1" type="success" effect="plain">域名解析</el-tag>
@@ -47,18 +48,9 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="xdsj"
-        label="下单日期"
-        min-width="180"
-        sortable>
-        <template slot-scope="scope">
-          {{scope.row.xdsj|formatDate}}
-        </template>
-      </el-table-column>
-      <el-table-column
         prop="jdsj"
         label="接单日期"
-        min-width="180"
+        min-width="150"
         sortable>
         <template slot-scope="scope">
           {{scope.row.jdsj|formatDate}}
@@ -67,7 +59,7 @@
       <el-table-column
         prop="wcsj"
         label="完成日期"
-        min-width="180"
+        min-width="150"
         sortable>
         <template slot-scope="scope">
           {{scope.row.wcsj|formatDate}}
@@ -76,22 +68,22 @@
       <el-table-column
         prop="xdr"
         label="下单人"
-        min-width="100"
+        min-width="90"
         sortable>
       </el-table-column>
-      <el-table-column min-width="100" prop="dqzt" label="当前状态">
+      <el-table-column min-width="80" prop="dqzt" label="当前状态">
         <template slot-scope="scope" >
           <el-badge is-dot :hidden="scope.row.fileurl==''">
             <el-tag type="info">已完成</el-tag>
           </el-badge>
         </template>
       </el-table-column>
-      <el-table-column prop="dsfs" label="打赏">
+      <el-table-column prop="dsfs" label="打赏" width="50">
         <template slot-scope="scope">
           {{scope.row.dsfs}}分
         </template>
       </el-table-column>
-      <el-table-column align="center" min-width="220">
+      <el-table-column align="center" min-width="160">
         <template slot="header">
         </template>
         <template slot-scope="scope">
@@ -149,7 +141,7 @@ export default {
     mounted() {
             this.$store.commit('menusum');
             this.yiwanchenglist();
-            this.$store.commit('menudefaultzt','1-6');//改变左侧激活状态
+            this.$store.commit('menudefaultzt','1-5');//改变左侧激活状态
     }
 }
 </script>
@@ -160,5 +152,4 @@ export default {
   .el-table .cell{
     text-align:center;}
   .el-badge[data-v-b2e0e6d6] >>> .el-badge__content{top:5px;}
-
 </style>

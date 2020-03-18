@@ -108,7 +108,7 @@
 </script>
 
 <style scoped>
-.search_bottom{margin-bottom: 20px;}
+.search_bottom{margin-bottom: 20px;width:100%;}
   .title_search{text-align:center;}
   .title_search button[data-v-804dfeec]{float:right;margin-top:-50px;}
   .el-table-column{display:block;overflow-inline:hidden;white-space:nowrap;text-overflow:ellipsis;width:50px;}

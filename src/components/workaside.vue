@@ -10,8 +10,8 @@
             <router-link to="/daijieshou"><el-menu-item index="1-1"><el-badge :value="this.$store.state.gongdan.daijieshou" :max="99" class="item" type="primary">待接收</el-badge></el-menu-item></router-link>
             <router-link to="/gongzuozhong"><el-menu-item index="1-2"><el-badge :value="this.$store.state.gongdan.gongzuozhong" :max="99" type="success">工作中</el-badge></el-menu-item></router-link>
             <router-link to="/daidashang"><el-menu-item index="1-3"><el-badge :value="this.$store.state.gongdan.daidashang" :max="99" type="warning">待打赏</el-badge></el-menu-item></router-link>
-            <router-link to="/yiwancheng"><el-menu-item index="1-5"><el-badge type="info" :value="this.$store.state.gongdan.yiwancheng" :max="99">已完成</el-badge></el-menu-item></router-link>
             <router-link to="/wotijiao"><el-menu-item index="1-4"><el-badge :value="this.$store.state.gongdan.wotijiao" :max="99">我提交</el-badge></el-menu-item></router-link>
+            <router-link to="/yiwancheng"><el-menu-item index="1-5"><el-badge type="info" :value="this.$store.state.gongdan.yiwancheng" :max="99">已完成</el-badge></el-menu-item></router-link>
             <router-link to="/tijiao"><el-menu-item index="1-6">提交</el-menu-item></router-link>
           </el-submenu>
           <router-link to="/FTPsearch">

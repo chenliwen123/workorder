@@ -11,14 +11,15 @@
       <el-table-column
         prop="id"
         label="id"
-      width="100">
+      width="60">
       </el-table-column>
       <el-table-column
         prop="ym"
         label="域名"
+        min-width="100"
         sortable>
       </el-table-column>
-      <el-table-column label="工单类型" sortable>
+      <el-table-column label="工单类型" sortable min-width="50">
         <template slot-scope="scope">
           <el-tag label="1" v-if="scope.row.leixing==1" type="success" effect="plain">域名解析</el-tag>
           <el-tag label="2" v-if="scope.row.leixing==2" type="success" effect="plain" border>整站复制</el-tag>
@@ -44,7 +45,9 @@
       </el-table-column>
       <el-table-column
         prop="jdsj"
-        label="接单日期">
+        label="接单日期"
+        min-width="80"
+        >
         <template slot-scope="scope">
           {{scope.row.jdsj | formatDate}}
         </template>
@@ -52,11 +55,14 @@
       <el-table-column
         prop="xdr"
         label="下单人"
+        class-name="callclass"
+        min-width="60"
         sortable>
       </el-table-column>
       <el-table-column
         prop="scope"
         label="当前状态"
+        min-width="70"
         sortable>
             <template slot-scope="scope">
               <el-badge is-dot :hidden="scope.row.fileurl==''">
@@ -137,5 +143,6 @@ export default {
   .el-table__footer-wrapper, .el-table__header-wrapper{cursor: pointer;}
   .el-table .cell{
     text-align:center;}
+    .cellname{text-align:center;}
   .el-badge >>> .el-badge__content{top:5px;}
 </style>

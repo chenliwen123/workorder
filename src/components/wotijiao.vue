@@ -9,15 +9,16 @@
       @cell-dblclick="xiangqing"
       @selection-change="handleSelectionChange"
       class="table_tbody_tr">
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" min-width="30"></el-table-column>
       <el-table-column
         prop="id"
-        min-width="80"
+        min-width="40"
         label="id">
       </el-table-column>
       <el-table-column
         prop="ym"
         label="域名"
+        min-width="100"
         sortable>
       </el-table-column>
       <el-table-column
@@ -83,7 +84,7 @@
           </el-badge>
         </template>
       </el-table-column>
-      <el-table-column align="center" width="220">
+      <el-table-column align="center" min-width="120">
         <template slot="header">
         </template>
         <template slot-scope="scope">
@@ -166,7 +167,7 @@ export default {
         },
     mounted() {
         this.$store.commit('menusum');//改变左侧菜单显示个数
-        this.$store.commit('menudefaultzt','1-6');//改变左侧激活状态
+        this.$store.commit('menudefaultzt','1-4');//改变左侧激活状态
         this.wotijiaolist();//获取当前列表
     },
 }

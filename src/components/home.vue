@@ -40,7 +40,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .main_left{width:10%;min-width:160px;}
-  .main_right{width:100%;display: flex;justify-content: center;}
+  .main_right{width:90%;display: flex;justify-content: center;}
   .right_content{width:95%;display: flex;justify-content: center;}
   .right_content >>> div[data-v-957c9522]{width:100%;}
   .main_flex{display:flex;justify-content:flex-start;}

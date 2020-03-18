@@ -13,19 +13,19 @@
       class="table_tbody_tr">
       <el-table-column
         prop="id"
-        min-width="80"
+        width="80"
         label="id">
       </el-table-column>
    <el-table-column
      prop="ym"
      label="域名"
      sortable
-   class-name="yuming">
+     min-width="100"
+   >
    </el-table-column> 
       <el-table-column
         prop="leixing"
         label="工单类型"
-        min-width="120"
         sortable>
 <template slot-scope="scope">
   <el-tag label="1" v-if="scope.row.leixing==1" type="success" effect="plain">域名解析</el-tag>
@@ -53,7 +53,8 @@
       <el-table-column
         prop="xdsj"
         label="下单时间"
-        min-width="180"
+        min-width="140"
+        class-name="callclass"
         sortable>
         <template slot-scope="scope">
           {{scope.row.xdsj | formatDate}}
@@ -63,6 +64,7 @@
         prop="xdr"
         label="下单人"
         min-width="100"
+        class-name="callclass"
         sortable>
       </el-table-column>
       <el-table-column prop="dqzt" label="当前状态" min-width="100" height="35" sortable>
@@ -75,7 +77,7 @@
           </el-badge>
         </template>
       </el-table-column>
-      <el-table-column align="center" min-width="220">
+      <el-table-column align="center" min-width="160">
         <template slot="header" slot-scope="scope">
           <el-input v-model="search" size="mini" @input="searchdjs()" placeholder="请输入关键词搜索"></el-input>
         </template>
@@ -219,6 +221,8 @@ export default {
 <style scoped>
   .expanded{cursor:pointer;}
   /deep/ .ymchangd{animation: guodu 4s;}
+  /deep/ .callclass{text-align:center;}
+  /deep/ .yuming{text-align:center;}
   @keyframes guodu{
     0%{background:#a47deb;}
     100%{background:#fff;}

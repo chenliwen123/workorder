@@ -10,17 +10,20 @@
       class="table_tbody_tr">
       <el-table-column
         prop="id"
-        min-width="80"
+        min-width="50"
         label="id">
       </el-table-column>
       <el-table-column
         prop="ym"
         label="域名"
+        class-name="callclass"
+        min-width="140"
         sortable>
       </el-table-column>
       <el-table-column
         prop="leixing"
         label="工单类型"
+        min-width="90"
         sortable>
         <template slot-scope="scope">
           <el-tag label="1" v-if="scope.row.leixing==1" type="success" effect="plain">域名解析</el-tag>
@@ -46,16 +49,9 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="xdsj"
-        label="下单日期"
-        sortable>
-        <template slot-scope="scope">
-          {{scope.row.xdsj|formatDate}}
-        </template>
-      </el-table-column>
-      <el-table-column
         prop="jdsj"
         label="接单日期"
+        min-width="140"
         sortable>
         <template slot-scope="scope">
           {{scope.row.jdsj|formatDate}}
@@ -64,6 +60,7 @@
       <el-table-column
         prop="wcsj"
         label="完成日期"
+        min-width="140"
         sortable>
         <template slot-scope="scope">
           {{scope.row.wcsj|formatDate}}
@@ -72,16 +69,17 @@
       <el-table-column
         prop="xdr"
         label="下单人"
+        min-width="80"
         sortable>
       </el-table-column>
-      <el-table-column prop="zhuangtai" label="当前状态" sortable>
+      <el-table-column prop="zhuangtai" label="当前状态" sortable min-width="100"> 
         <template slot-scope="scope">
           <el-badge is-dot :hidden="scope.row.fileurl==''">
             <el-tag type="warning" v-if="scope.row.dqzt==3" round>待打赏</el-tag>
           </el-badge>
         </template>
       </el-table-column>
-      <el-table-column align="center" width="220">
+      <el-table-column align="center" min-width="150">
         <template slot="header">
         </template>
         <template slot-scope="scope">
