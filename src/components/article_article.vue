@@ -63,7 +63,7 @@ export default {
     return{
       formLabelAlign:{},
      // formshow:false,//改变显示详细 变量
-        radio:null,
+        radio:'',
     }
   },
   created(){
@@ -94,19 +94,6 @@ export default {
               // }
           })
       },
-      dashang11(){
-          let _this=this;
-          this.$axios.post('dashang',`id=${_this.dashang}&pj=${_this.radio}`).then(function (success) {
-              console.log(success.data);
-              if (success.data==1){
-                  _this.$message({
-                      type:"success",
-                      message:"打赏成功",
-                  })
-                  _this.$router.push("/yiwancheng");
-              }
-          })
-      },
       wancheng(){
           let _this=this;
           this.$axios.post('wanchen',`id=${_this.$route.params.id}`).then(function (success) {
@@ -122,7 +109,7 @@ export default {
       },
       dashang11(pj){
           let _this=this;
-          this.$axios.post('dashang',`id=${_this.$route.params.id}&pj=${pj}`).then(function (success) {
+          this.$axios.post('dashang',`id=${_this.$route.params.id}&pj=${_this.radio}`).then(function (success) {
               console.log(success.data);
               if (success.data==1){
                   _this.$message({
@@ -166,38 +153,17 @@ export default {
   .el-radio-button:nth-child(2).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#E6A23C;border:#E6A23C 1px solid;-webkit-box-shadow:-1px 0 0 0 #E6A23C;}
   .el-radio-button:nth-child(3).is-active[data-v-63284e4d] >>> .el-radio-button__inner{background-color:#F56C6C;border:#F56C6C 1px solid;-webkit-box-shadow:-1px 0 0 0 #F56C6C;}
   .el-radio-group {
-
     .el-radio__input.is-checked .el-radio__inner {
-
-
-
       border-color: #67C23A;
-
       background: #67C23A;
-
     }
-
     .el-radio__input .el-radio__inner {
-
-
-
       &:hover {
-
         border: 1px solid #67C23A;
-
       }
-
     }
-
     .el-radio__input.is-checked+.el-radio__label {
-
-
-
       color: #67C23A;
-
     }
-
-
-
   }
 </style>
