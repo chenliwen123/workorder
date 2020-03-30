@@ -185,7 +185,7 @@ Vue.prototype.$axios=axios;
 Vue.use(new VueSocketIO({
   debug: false,
   connection: 'http://192.168.255.80:88',  
-}))
+}))//实时交互的 服务器
 
 Object.keys(filters).forEach(k => {
   Vue.filter(k, filters[k])

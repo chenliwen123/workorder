@@ -56,6 +56,7 @@ export default {
     }
   },
   mounted(){
+    
     let _this=this;
     jigsaw.init({
       el: document.getElementById('captcha'),
